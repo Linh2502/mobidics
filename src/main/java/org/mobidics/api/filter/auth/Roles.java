@@ -1,4 +1,4 @@
-package org.mobidics.api.property.auth;
+package org.mobidics.api.filter.auth;
 
 /**
  * Created by Long Bui on 01.03.17.

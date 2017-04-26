@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration>
+<hibernate-configuration>
+    <session-factory name="hibernateSessionFactory">
+        <mapping class="org.mobidics.model.User"/>
+        <mapping class="org.mobidics.model.MethodsDeEntity"/>
+        <mapping class="org.mobidics.model.UniversitiesEntity"/>
+    </session-factory>
+</hibernate-configuration>

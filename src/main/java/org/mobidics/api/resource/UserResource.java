@@ -1,5 +1,9 @@
-package org.mobidics.api.endpoint;
+package org.mobidics.api.resource;
 
+
+import org.mobidics.api.viewmodel.UserViewModel;
+import org.mobidics.data.UserDAO;
+import org.mobidics.model.User;
 
 import javax.ws.rs.*;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -23,8 +27,11 @@ public class UserResource
     ContainerRequestContext requestContext;
 
     @GET
-    public Response getAllUsers()
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{username}")
+    public Response getUserByUsername(@PathParam("username") String username)
     {
-        return Response.ok().build();
+        User loadedUser = new UserDAO().getUserByUsername(username);
+        return Response.ok(new UserViewModel(loadedUser)).build();
     }
 }

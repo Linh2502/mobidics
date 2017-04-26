@@ -1,4 +1,4 @@
-package org.mobidics.api.endpoint;
+package org.mobidics.api.resource;
 
 import javax.ws.rs.*;
 import javax.ws.rs.container.ContainerRequestContext;

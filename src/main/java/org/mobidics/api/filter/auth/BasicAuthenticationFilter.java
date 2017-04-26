@@ -1,4 +1,4 @@
-package org.mobidics.api.property.auth;
+package org.mobidics.api.filter.auth;
 
 
 import javax.ws.rs.container.ContainerRequestContext;

@@ -1,4 +1,4 @@
-package org.mobidics.api.property;
+package org.mobidics.api.filter;
 
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
