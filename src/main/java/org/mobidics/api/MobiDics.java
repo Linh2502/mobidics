@@ -19,7 +19,6 @@ public class MobiDics extends ResourceConfig
     {
         this.register(CorsFilter.class)
             .register(UserResource.class)
-            .register(MethodResource.class)
-            .register(BasicAuthenticationFilter.class);
+            .register(MethodResource.class);
     }
 }

@@ -52,6 +52,9 @@
           <element id="library" level="project" name="Maven: org.hibernate.common:hibernate-commons-annotations:5.0.1.Final" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:6.0.6" />
           <element id="library" level="project" name="Maven: com.owlike:genson:1.4" />
+          <element id="library" level="project" name="Maven: org.hibernate:hibernate-c3p0:5.2.10.Final" />
+          <element id="library" level="project" name="Maven: com.mchange:c3p0:0.9.5.2" />
+          <element id="library" level="project" name="Maven: com.mchange:mchange-commons-java:0.2.11" />
         </element>
       </element>
       <element id="directory" name="META-INF">

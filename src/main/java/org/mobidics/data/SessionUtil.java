@@ -4,8 +4,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import java.io.InputStream;
-
 /**
  * Created by Long Bui on 26.04.17.
  * E-Mail: giaolong.bui@student.fhws.de
@@ -28,13 +26,7 @@ public class SessionUtil
     private SessionUtil()
     {
         Configuration configuration = new Configuration();
-        configuration.configure("hibernate.cfg.xml")
-                     .setProperty("hibernate.connection.driver_class", "com.mysql.cj.jdbc.Driver")
-                     .setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/mobidics?serverTimezone=GMT")
-                     .setProperty("hibernate.connection.username", "root")
-                     .setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect")
-                     .setProperty("hibernate.show_sql", "true")
-                     .setProperty("hibernate.format_sql", "true");
+        configuration.configure("hibernate.cfg.xml");
         sessionFactory = configuration.buildSessionFactory();
     }
 

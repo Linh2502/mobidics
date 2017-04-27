@@ -8,30 +8,6 @@ import java.sql.Timestamp;
  * Created by Long Bui on 26.04.17.
  * E-Mail: giaolong.bui@student.fhws.de
  */
-@NamedQueries({
-        @NamedQuery(
-                name = "updateUserByUsername",
-                query = "update User set" +
-                        " firstname = :firstname," +
-                        " lastname = :lastname," +
-                        " password = :password, " +
-                        " email =:email," +
-                        " language = :language," +
-                        " birthday = :birthday," +
-                        " gender = :gender," +
-                        " userstatus = :userstatus," +
-                        " usertype = :usertype," +
-                        " universityId = :universityId," +
-                        " department = :department," +
-                        " facultyId = :facultyId," +
-                        " experience = :experience" +
-                        " where username = :username"
-        ),
-        @NamedQuery(
-                name = "deleteUserByUsername",
-                query = "delete User where username = :username"
-        )
-})
 @Entity @Table(name = "users", schema = "mobidics")
 public class User
 {
