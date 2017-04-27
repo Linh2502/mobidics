@@ -20,6 +20,8 @@ public class MethodDAO
     {
         Session session = SessionUtil.getSession();
         Query query = session.createQuery("from MethodsDeEntity");
-        return query.list();
+        List<MethodsDeEntity> result = query.list();
+        session.close();
+        return result;
     }
 }

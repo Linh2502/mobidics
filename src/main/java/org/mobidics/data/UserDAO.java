@@ -19,6 +19,8 @@ public class UserDAO
     public User getUserByUsername(String username)
     {
         Session session = SessionUtil.getSession();
+        User user = session.load(User.class, username);
+        session.close();
         return session.load(User.class, username);
     }
 

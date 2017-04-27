@@ -17,6 +17,7 @@ public class UniversityDAO
     {
         Session session = SessionUtil.getSession();
         UniversitiesEntity universitiesEntity = session.load(UniversitiesEntity.class, id);
+        session.close();
         return universitiesEntity.getName();
     }
 }

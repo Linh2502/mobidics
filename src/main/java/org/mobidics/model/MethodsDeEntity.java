@@ -1,11 +1,10 @@
 package org.mobidics.model;
 
-import org.hibernate.annotations.*;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by Long Bui on 26.04.17.
@@ -15,7 +14,7 @@ import java.sql.Timestamp;
 {
     private String id;
     private String language;
-    private Timestamp dateCreated;
+    private Date dateCreated;
     private String title;
     private String alternativeTitles;
     private String socialform;
@@ -48,7 +47,7 @@ import java.sql.Timestamp;
     private String citations;
     private String elxMethodsId;
     private String vendorId;
-    private Timestamp dateModified;
+    private Date dateModified;
 
     @Id
     @Column(name = "id", nullable = false, length = 36)
@@ -76,12 +75,13 @@ import java.sql.Timestamp;
 
     @Basic
     @Column(name = "date_created", nullable = false)
-    public Timestamp getDateCreated()
+    @Temporal(TemporalType.DATE)
+    public Date getDateCreated()
     {
         return dateCreated;
     }
 
-    public void setDateCreated(Timestamp dateCreated)
+    public void setDateCreated(Date dateCreated)
     {
         this.dateCreated = dateCreated;
     }
@@ -472,12 +472,13 @@ import java.sql.Timestamp;
 
     @Basic
     @Column(name = "date_modified", nullable = false)
-    public Timestamp getDateModified()
+    @Temporal(TemporalType.DATE)
+    public Date getDateModified()
     {
         return dateModified;
     }
 
-    public void setDateModified(Timestamp dateModified)
+    public void setDateModified(Date dateModified)
     {
         this.dateModified = dateModified;
     }
