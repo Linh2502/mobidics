@@ -1,7 +1,6 @@
 package org.mobidics.api.resource;
 
 
-import org.mobidics.api.viewmodel.UserViewModel;
 import org.mobidics.data.UserDAO;
 import org.mobidics.model.User;
 
@@ -32,6 +31,6 @@ public class UserResource
     public Response getUserByUsername(@PathParam("username") String username)
     {
         User loadedUser = new UserDAO().getUserByUsername(username);
-        return Response.ok(new UserViewModel(loadedUser)).build();
+        return Response.ok(loadedUser).build();
     }
 }

@@ -2,7 +2,6 @@ package org.mobidics.model;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.sql.Timestamp;
 
 /**
  * Created by Long Bui on 26.04.17.
@@ -11,31 +10,55 @@ import java.sql.Timestamp;
 @Entity @Table(name = "users", schema = "mobidics")
 public class User
 {
-    private String username;
-    private String password;
-    private String email;
-    private int creationDate;
-    private boolean approved;
-    private boolean isFirstRun;
-    private int userLevel;
-    private String language;
-    private String profilepicture;
-    private String firstname;
-    private String lastname;
-    private Date birthday;
-    private int gender;
-    private int userstatus;
-    private int usertype;
-    private String usertypeOther;
-    private String universityId;
-    private int facultyId;
-    private String department;
-    private String experience;
-    private String privateFields;
-    private Timestamp dateModified;
-
     @Id
     @Column(name = "username", nullable = false, length = 30)
+    private String username;
+    @Column(name = "password", length = 32)
+    private String password;
+    @Column(name = "email", length = 50)
+    private String email;
+    @Column(name = "timestamp", nullable = false)
+    private int creationDate;
+    @Column(name = "approved", nullable = false)
+    private boolean approved;
+    @Column(name = "isfirstrun", nullable = false)
+    private boolean isFirstRun;
+    @Column(name = "userlevel", nullable = false)
+    private int userLevel;
+    @Column(name = "language", nullable = false)
+    private String language;
+    @Column(name = "profilepicture")
+    private String profileImage;
+    @Column(name = "firstname")
+    private String firstname;
+    @Column(name = "lastname")
+    private String lastname;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "birthday")
+    private Date birthday;
+    @Column(name = "gender")
+    private int gender;
+    @Column(name = "userstatus")
+    private int userStatus;
+    @Column(name = "usertype")
+    private int userType;
+    @Column(name = "usertype_other")
+    private String usertypeOther;
+    @ManyToOne(targetEntity = University.class)
+    private University university;
+    @ManyToOne(targetEntity = Faculty.class)
+    @JoinColumn(name = "faculty_id", referencedColumnName = "nr")
+    private Faculty faculty;
+    @Column(name = "department")
+    private String department;
+    @Column(name = "experience", length = 3)
+    private String experience;
+    @Column(name = "private")
+    private String privateFields;
+    @Column(name = "date_modified", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date dateModified;
+
     public String getUsername()
     {
         return username;
@@ -46,8 +69,6 @@ public class User
         this.username = username;
     }
 
-    @Basic
-    @Column(name = "password", nullable = true, length = 32)
     public String getPassword()
     {
         return password;
@@ -58,8 +79,6 @@ public class User
         this.password = password;
     }
 
-    @Basic
-    @Column(name = "email", nullable = true, length = 50)
     public String getEmail()
     {
         return email;
@@ -70,8 +89,6 @@ public class User
         this.email = email;
     }
 
-    @Basic
-    @Column(name = "timestamp", nullable = false)
     public int getCreationDate()
     {
         return creationDate;
@@ -82,8 +99,6 @@ public class User
         this.creationDate = timestamp;
     }
 
-    @Basic
-    @Column(name = "approved", nullable = false)
     public boolean isApproved()
     {
         return approved;
@@ -94,8 +109,6 @@ public class User
         this.approved = approved;
     }
 
-    @Basic
-    @Column(name = "isfirstrun", nullable = false)
     public boolean isIsFirstRun()
     {
         return isFirstRun;
@@ -106,8 +119,6 @@ public class User
         this.isFirstRun = isfirstrun;
     }
 
-    @Basic
-    @Column(name = "userlevel", nullable = false)
     public int getUserLevel()
     {
         return userLevel;
@@ -118,8 +129,6 @@ public class User
         this.userLevel = userlevel;
     }
 
-    @Basic
-    @Column(name = "language", nullable = false, length = 255)
     public String getLanguage()
     {
         return language;
@@ -130,20 +139,16 @@ public class User
         this.language = language;
     }
 
-    @Basic
-    @Column(name = "profilepicture", nullable = true, length = 255)
-    public String getProfilepicture()
+    public String getProfileImage()
     {
-        return profilepicture;
+        return profileImage;
     }
 
-    public void setProfilepicture(String profilepicture)
+    public void setProfileImage(String profileImage)
     {
-        this.profilepicture = profilepicture;
+        this.profileImage = profileImage;
     }
 
-    @Basic
-    @Column(name = "firstname", nullable = true, length = 255)
     public String getFirstname()
     {
         return firstname;
@@ -154,8 +159,6 @@ public class User
         this.firstname = firstname;
     }
 
-    @Basic
-    @Column(name = "lastname", nullable = true, length = 255)
     public String getLastname()
     {
         return lastname;
@@ -166,9 +169,6 @@ public class User
         this.lastname = lastname;
     }
 
-    @Basic
-    @Temporal(TemporalType.DATE)
-    @Column(name = "birthday", nullable = true)
     public Date getBirthday()
     {
         return birthday;
@@ -179,8 +179,6 @@ public class User
         this.birthday = birthday;
     }
 
-    @Basic
-    @Column(name = "gender", nullable = true)
     public int getGender()
     {
         return gender;
@@ -191,32 +189,26 @@ public class User
         this.gender = gender;
     }
 
-    @Basic
-    @Column(name = "userstatus", nullable = true)
-    public int getUserstatus()
+    public int getUserStatus()
     {
-        return userstatus;
+        return userStatus;
     }
 
-    public void setUserstatus(int userstatus)
+    public void setUserStatus(int userStatus)
     {
-        this.userstatus = userstatus;
+        this.userStatus = userStatus;
     }
 
-    @Basic
-    @Column(name = "usertype", nullable = true)
-    public int getUsertype()
+    public int getUserType()
     {
-        return usertype;
+        return userType;
     }
 
-    public void setUsertype(int usertype)
+    public void setUserType(int userType)
     {
-        this.usertype = usertype;
+        this.userType = userType;
     }
 
-    @Basic
-    @Column(name = "usertype_other", nullable = true, length = 255)
     public String getUsertypeOther()
     {
         return usertypeOther;
@@ -227,32 +219,26 @@ public class User
         this.usertypeOther = usertypeOther;
     }
 
-    @Basic
-    @Column(name = "university_id", nullable = true, length = 255)
-    public String getUniversityId()
+    public University getUniversity()
     {
-        return universityId;
+        return university;
     }
 
-    public void setUniversityId(String universityId)
+    public void setUniversity(University university)
     {
-        this.universityId = universityId;
+        this.university = university;
     }
 
-    @Basic
-    @Column(name = "faculty_id", nullable = true)
-    public int getFacultyId()
+    public Faculty getFaculty()
     {
-        return facultyId;
+        return faculty;
     }
 
-    public void setFacultyId(int facultyId)
+    public void setFaculty(Faculty faculty)
     {
-        this.facultyId = facultyId;
+        this.faculty = faculty;
     }
 
-    @Basic
-    @Column(name = "department", nullable = true, length = 255)
     public String getDepartment()
     {
         return department;
@@ -263,8 +249,6 @@ public class User
         this.department = department;
     }
 
-    @Basic
-    @Column(name = "experience", nullable = true, length = 3)
     public String getExperience()
     {
         return experience;
@@ -275,8 +259,6 @@ public class User
         this.experience = experience;
     }
 
-    @Basic
-    @Column(name = "private", nullable = true, length = 255)
     public String getPrivateFields()
     {
         return privateFields;
@@ -287,14 +269,12 @@ public class User
         this.privateFields = privateFields;
     }
 
-    @Basic
-    @Column(name = "date_modified", nullable = false)
-    public Timestamp getDateModified()
+    public Date getDateModified()
     {
         return dateModified;
     }
 
-    public void setDateModified(Timestamp dateModified)
+    public void setDateModified(Date dateModified)
     {
         this.dateModified = dateModified;
     }

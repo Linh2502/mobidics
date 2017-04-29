@@ -19,7 +19,7 @@ public class MethodDAO
     public List<MethodsDeEntity> getAllMethods()
     {
         Session session = SessionUtil.getSession();
-        Query query = session.createQuery("from MethodsDeEntity");
+        Query query = session.createQuery("from org.mobidics.model.MethodsDeEntity");
         List<MethodsDeEntity> result = query.list();
         session.close();
         return result;

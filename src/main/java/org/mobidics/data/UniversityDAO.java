@@ -1,7 +1,7 @@
 package org.mobidics.data;
 
 import org.hibernate.Session;
-import org.mobidics.model.UniversitiesEntity;
+import org.mobidics.model.University;
 
 /**
  * Created by Long Bui on 26.04.17.
@@ -16,8 +16,9 @@ public class UniversityDAO
     public String getUniversityNameById(String id)
     {
         Session session = SessionUtil.getSession();
-        UniversitiesEntity universitiesEntity = session.load(UniversitiesEntity.class, id);
+        University university = session.get(University.class, id);
+        String result = university.getName();
         session.close();
-        return universitiesEntity.getName();
+        return result;
     }
 }

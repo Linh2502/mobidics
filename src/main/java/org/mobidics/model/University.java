@@ -2,25 +2,45 @@ package org.mobidics.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by Long Bui on 26.04.17.
  * E-Mail: giaolong.bui@student.fhws.de
  */
-@Entity @Table(name = "universities", schema = "mobidics", catalog = "") public class UniversitiesEntity
+@Entity @Table(name = "universities", schema = "mobidics")
+public class University
 {
-    private String id;
-    private int hsnr;
-    private String name;
-    private String city;
-    private String state;
-    private String country;
-    private String operator;
-    private String type;
-    private Timestamp dateModified;
-
     @Id
     @Column(name = "id", nullable = false, length = 36)
+    private String id;
+    @Basic
+    @Column(name = "hsnr", nullable = false)
+    private int hsnr;
+    @Basic
+    @Column(name = "name", nullable = true, length = 255)
+    private String name;
+    @Basic
+    @Column(name = "city", nullable = false, length = 64)
+    private String city;
+    @Basic
+    @Column(name = "state", nullable = false, length = 32)
+    private String state;
+    @Basic
+    @Column(name = "country", nullable = false, length = 2)
+    private String country;
+    @Basic
+    @Column(name = "operator", nullable = false)
+    private String operator;
+    @Basic
+    @Column(name = "type", nullable = false)
+    private String type;
+    @Basic
+    @Column(name = "date_modified", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date dateModified;
+
+
     public String getId()
     {
         return id;
@@ -31,8 +51,6 @@ import java.sql.Timestamp;
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "hsnr", nullable = false)
     public int getHsnr()
     {
         return hsnr;
@@ -43,8 +61,6 @@ import java.sql.Timestamp;
         this.hsnr = hsnr;
     }
 
-    @Basic
-    @Column(name = "name", nullable = true, length = 255)
     public String getName()
     {
         return name;
@@ -55,8 +71,6 @@ import java.sql.Timestamp;
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "city", nullable = false, length = 64)
     public String getCity()
     {
         return city;
@@ -67,8 +81,6 @@ import java.sql.Timestamp;
         this.city = city;
     }
 
-    @Basic
-    @Column(name = "state", nullable = false, length = 32)
     public String getState()
     {
         return state;
@@ -79,8 +91,6 @@ import java.sql.Timestamp;
         this.state = state;
     }
 
-    @Basic
-    @Column(name = "country", nullable = false, length = 2)
     public String getCountry()
     {
         return country;
@@ -91,8 +101,6 @@ import java.sql.Timestamp;
         this.country = country;
     }
 
-    @Basic
-    @Column(name = "operator", nullable = false)
     public String getOperator()
     {
         return operator;
@@ -103,8 +111,6 @@ import java.sql.Timestamp;
         this.operator = operator;
     }
 
-    @Basic
-    @Column(name = "type", nullable = false)
     public String getType()
     {
         return type;
@@ -115,14 +121,12 @@ import java.sql.Timestamp;
         this.type = type;
     }
 
-    @Basic
-    @Column(name = "date_modified", nullable = false)
-    public Timestamp getDateModified()
+    public Date getDateModified()
     {
         return dateModified;
     }
 
-    public void setDateModified(Timestamp dateModified)
+    public void setDateModified(Date dateModified)
     {
         this.dateModified = dateModified;
     }
