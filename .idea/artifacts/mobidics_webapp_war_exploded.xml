@@ -55,14 +55,6 @@
           <element id="library" level="project" name="Maven: org.hibernate:hibernate-c3p0:5.2.10.Final" />
           <element id="library" level="project" name="Maven: com.mchange:c3p0:0.9.5.2" />
           <element id="library" level="project" name="Maven: com.mchange:mchange-commons-java:0.2.11" />
-          <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-webapp:9.4.4.v20170414" />
-          <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-xml:9.4.4.v20170414" />
-          <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-util:9.4.4.v20170414" />
-          <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-servlet:9.4.4.v20170414" />
-          <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-security:9.4.4.v20170414" />
-          <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-server:9.4.4.v20170414" />
-          <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-http:9.4.4.v20170414" />
-          <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-io:9.4.4.v20170414" />
         </element>
       </element>
       <element id="directory" name="META-INF">
