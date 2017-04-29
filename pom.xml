@@ -130,5 +130,17 @@
             <artifactId>hibernate-c3p0</artifactId>
             <version>5.2.10.Final</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-webapp -->
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-webapp</artifactId>
+            <version>9.4.4.v20170414</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-server -->
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <version>9.4.4.v20170414</version>
+        </dependency>
     </dependencies>
 </project>
