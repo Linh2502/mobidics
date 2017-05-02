@@ -24,4 +24,12 @@ public class MethodDAO
         session.close();
         return result;
     }
+
+    public MethodsDeEntity getMethodById(String id)
+    {
+        Session session = SessionUtil.getSession();
+        MethodsDeEntity result = session.get(MethodsDeEntity.class, id);
+        session.close();
+        return result;
+    }
 }

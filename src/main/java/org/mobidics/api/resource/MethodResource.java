@@ -16,7 +16,7 @@ import java.util.*;
  * Created by Long Bui on 28.02.17.
  * E-Mail: giaolong.bui@student.fhws.de
  */
-@Path("methods")
+@Path("/methods")
 public class MethodResource
 {
     @Context
@@ -37,5 +37,19 @@ public class MethodResource
             methods.add(new MethodViewModel(methodRaw));
         }
         return Response.ok(methods).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{id}")
+    public Response getMethodById(@PathParam("id") String methodId)
+    {
+        MethodDAO methodDAO = new MethodDAO();
+        MethodsDeEntity result = methodDAO.getMethodById(methodId);
+        if (result == null)
+        {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        return Response.ok(new MethodViewModel(result)).build();
     }
 }

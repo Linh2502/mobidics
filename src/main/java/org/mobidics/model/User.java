@@ -1,7 +1,10 @@
 package org.mobidics.model;
 
+import com.owlike.genson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by Long Bui on 26.04.17.
@@ -58,6 +61,10 @@ public class User
     @Column(name = "date_modified", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dateModified;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "favorites", joinColumns = @JoinColumn(name = "username"))
+    @Column(name = "method_id")
+    private Set<String> favorites;
 
     public String getUsername()
     {
@@ -277,5 +284,15 @@ public class User
     public void setDateModified(Date dateModified)
     {
         this.dateModified = dateModified;
+    }
+
+    public Set<String> getFavorites()
+    {
+        return favorites;
+    }
+
+    public void setFavorites(Set<String> favorites)
+    {
+        this.favorites = favorites;
     }
 }

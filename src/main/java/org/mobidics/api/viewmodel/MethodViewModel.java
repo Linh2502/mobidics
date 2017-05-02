@@ -126,4 +126,9 @@ public class MethodViewModel
     {
         return method.getUserrating();
     }
+
+    public String getVisualization()
+    {
+        return method.getVisualization();
+    }
 }
