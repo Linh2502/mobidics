@@ -1,5 +1,6 @@
 package org.mobidics.api.resource;
 
+import org.mobidics.api.viewmodel.MethodReducedViewModel;
 import org.mobidics.api.viewmodel.MethodViewModel;
 import org.mobidics.data.MethodDAO;
 import org.mobidics.model.MethodsDeEntity;
@@ -31,10 +32,10 @@ public class MethodResource
     {
         MethodDAO methodDAO = new MethodDAO();
         List<MethodsDeEntity> methodsRaw = methodDAO.getAllMethods();
-        List<MethodViewModel> methods = new LinkedList<>();
+        List<MethodReducedViewModel> methods = new LinkedList<>();
         for (MethodsDeEntity methodRaw : methodsRaw)
         {
-            methods.add(new MethodViewModel(methodRaw));
+            methods.add(new MethodReducedViewModel(methodRaw));
         }
         return Response.ok(methods).build();
     }

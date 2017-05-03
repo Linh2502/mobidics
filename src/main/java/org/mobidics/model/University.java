@@ -18,7 +18,7 @@ public class University
     @Column(name = "hsnr", nullable = false)
     private int hsnr;
     @Basic
-    @Column(name = "name", nullable = true, length = 255)
+    @Column(name = "name")
     private String name;
     @Basic
     @Column(name = "city", nullable = false, length = 64)
