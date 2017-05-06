@@ -28,10 +28,10 @@ public class MethodResource
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllMethods()
+    public Response getAllMethods(@QueryParam("name") @DefaultValue("") String methodName)
     {
         MethodDAO methodDAO = new MethodDAO();
-        List<MethodsDeEntity> methodsRaw = methodDAO.getAllMethods();
+        List<MethodsDeEntity> methodsRaw = methodDAO.getAllMethodsByName(methodName);
         List<MethodReducedViewModel> methods = new LinkedList<>();
         for (MethodsDeEntity methodRaw : methodsRaw)
         {

@@ -4,6 +4,8 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.mobidics.model.MethodsDeEntity;
 
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import java.util.List;
 
 /**
@@ -16,11 +18,21 @@ public class MethodDAO
     {
     }
 
-    public List<MethodsDeEntity> getAllMethods()
+    public List<MethodsDeEntity> getAllMethodsByName(String methodName)
     {
         Session session = SessionUtil.getSession();
-        Query query = session.createQuery("from org.mobidics.model.MethodsDeEntity");
-        List<MethodsDeEntity> result = query.list();
+        List<MethodsDeEntity> result = null;
+        Query query = null;
+        if (methodName.isEmpty())
+        {
+            query = session.getNamedQuery("getAllMethods");
+        }
+        else
+        {
+            query = session.getNamedQuery("getAllMethodsByName")
+                           .setParameter("name", methodName);
+        }
+        result = query.list();
         session.close();
         return result;
     }

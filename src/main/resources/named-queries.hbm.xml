@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping>
+
+<hibernate-mapping>
+    <!-- MethodsDeEntity -->
+    <query name="getAllMethods">from MethodsDeEntity</query>
+    <query name="getAllMethodsByName">from MethodsDeEntity where title like concat('%',:name,'%')</query>
+</hibernate-mapping>
