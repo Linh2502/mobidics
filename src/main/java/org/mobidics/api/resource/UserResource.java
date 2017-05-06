@@ -1,16 +1,13 @@
 package org.mobidics.api.resource;
 
 
-import org.mobidics.api.viewmodel.MethodViewModel;
 import org.mobidics.data.UserDAO;
-import org.mobidics.model.MethodsDeEntity;
 import org.mobidics.model.User;
 
 import javax.ws.rs.*;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ResourceContext;
 import javax.ws.rs.core.*;
-import java.util.HashSet;
 import java.util.Set;
 
 /**

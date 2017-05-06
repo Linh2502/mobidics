@@ -13,7 +13,7 @@
         <property name="hibernate.format_sql">true</property>
 
         <mapping class="org.mobidics.model.User"/>
-        <mapping class="org.mobidics.model.MethodsDeEntity"/>
+        <mapping class="org.mobidics.model.MethodGerman"/>
         <mapping class="org.mobidics.model.University"/>
         <mapping class="org.mobidics.model.Faculty"/>
 

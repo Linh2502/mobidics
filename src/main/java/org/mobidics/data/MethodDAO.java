@@ -2,10 +2,8 @@ package org.mobidics.data;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import org.mobidics.model.MethodsDeEntity;
+import org.mobidics.model.MethodGerman;
 
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import java.util.List;
 
 /**
@@ -18,10 +16,10 @@ public class MethodDAO
     {
     }
 
-    public List<MethodsDeEntity> getAllMethodsByName(String methodName)
+    public List<MethodGerman> getAllMethodsByName(String methodName)
     {
         Session session = SessionUtil.getSession();
-        List<MethodsDeEntity> result = null;
+        List<MethodGerman> result = null;
         Query query = null;
         if (methodName.isEmpty())
         {
@@ -37,10 +35,10 @@ public class MethodDAO
         return result;
     }
 
-    public MethodsDeEntity getMethodById(String id)
+    public MethodGerman getMethodById(String id)
     {
         Session session = SessionUtil.getSession();
-        MethodsDeEntity result = session.get(MethodsDeEntity.class, id);
+        MethodGerman result = session.get(MethodGerman.class, id);
         session.close();
         return result;
     }

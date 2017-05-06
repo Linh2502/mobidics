@@ -1,8 +1,6 @@
 package org.mobidics.api.viewmodel;
 
-import org.mobidics.model.MethodsDeEntity;
-
-import java.util.Date;
+import org.mobidics.model.MobiDicsMethod;
 
 /**
  * Created by Long Bui on 03.05.17.
@@ -10,9 +8,9 @@ import java.util.Date;
  */
 public class MethodReducedViewModel
 {
-    private MethodsDeEntity method;
+    private MobiDicsMethod method;
 
-    public MethodReducedViewModel(MethodsDeEntity method)
+    public MethodReducedViewModel(MobiDicsMethod method)
     {
         this.method = method;
     }

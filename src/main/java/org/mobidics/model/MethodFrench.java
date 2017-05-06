@@ -2,12 +2,14 @@ package org.mobidics.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * Created by Long Bui on 26.04.17.
  * E-Mail: giaolong.bui@student.fhws.de
  */
-@Entity @Table(name = "methods_en", schema = "mobidics", catalog = "") public class MethodsEnEntity
+@Entity @Table(name = "methods_fr", schema = "mobidics", catalog = "")
+public class MethodFrench extends MobiDicsMethod
 {
     private String id;
     private String language;
@@ -45,6 +47,7 @@ import java.sql.Timestamp;
     private String elxMethodsId;
     private String vendorId;
     private Timestamp dateModified;
+    private List<String> imageFileNames;
 
     @Id
     @Column(name = "id", nullable = false, length = 36)
@@ -478,207 +481,16 @@ import java.sql.Timestamp;
         this.dateModified = dateModified;
     }
 
-    @Override
-    public boolean equals(Object o)
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "files", joinColumns = @JoinColumn(name = "method_id"))
+    @Column(name = "filename")
+    public List<String> getImageFileNames()
     {
-        if (this == o)
-        {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass())
-        {
-            return false;
-        }
-
-        MethodsEnEntity that = (MethodsEnEntity) o;
-
-        if (haspictures != that.haspictures)
-        {
-            return false;
-        }
-        if (scope != that.scope)
-        {
-            return false;
-        }
-        if (userrating != that.userrating)
-        {
-            return false;
-        }
-        if (id != null ? !id.equals(that.id) : that.id != null)
-        {
-            return false;
-        }
-        if (language != null ? !language.equals(that.language) : that.language != null)
-        {
-            return false;
-        }
-        if (dateCreated != null ? !dateCreated.equals(that.dateCreated) : that.dateCreated != null)
-        {
-            return false;
-        }
-        if (title != null ? !title.equals(that.title) : that.title != null)
-        {
-            return false;
-        }
-        if (alternativeTitles != null ? !alternativeTitles.equals(that.alternativeTitles) : that.alternativeTitles != null)
-        {
-            return false;
-        }
-        if (socialform != null ? !socialform.equals(that.socialform) : that.socialform != null)
-        {
-            return false;
-        }
-        if (phase != null ? !phase.equals(that.phase) : that.phase != null)
-        {
-            return false;
-        }
-        if (subphase != null ? !subphase.equals(that.subphase) : that.subphase != null)
-        {
-            return false;
-        }
-        if (result != null ? !result.equals(that.result) : that.result != null)
-        {
-            return false;
-        }
-        if (grouptype != null ? !grouptype.equals(that.grouptype) : that.grouptype != null)
-        {
-            return false;
-        }
-        if (coursetype != null ? !coursetype.equals(that.coursetype) : that.coursetype != null)
-        {
-            return false;
-        }
-        if (participantsMin != null ? !participantsMin.equals(that.participantsMin) : that.participantsMin != null)
-        {
-            return false;
-        }
-        if (participantsMax != null ? !participantsMax.equals(that.participantsMax) : that.participantsMax != null)
-        {
-            return false;
-        }
-        if (participantsComment != null ? !participantsComment.equals(that.participantsComment) : that.participantsComment != null)
-        {
-            return false;
-        }
-        if (seating != null ? !seating.equals(that.seating) : that.seating != null)
-        {
-            return false;
-        }
-        if (timeMin != null ? !timeMin.equals(that.timeMin) : that.timeMin != null)
-        {
-            return false;
-        }
-        if (timeMax != null ? !timeMax.equals(that.timeMax) : that.timeMax != null)
-        {
-            return false;
-        }
-        if (timeComment != null ? !timeComment.equals(that.timeComment) : that.timeComment != null)
-        {
-            return false;
-        }
-        if (rating != null ? !rating.equals(that.rating) : that.rating != null)
-        {
-            return false;
-        }
-        if (ourrating != null ? !ourrating.equals(that.ourrating) : that.ourrating != null)
-        {
-            return false;
-        }
-        if (proceeding != null ? !proceeding.equals(that.proceeding) : that.proceeding != null)
-        {
-            return false;
-        }
-        if (phaseproceeding != null ? !phaseproceeding.equals(that.phaseproceeding) : that.phaseproceeding != null)
-        {
-            return false;
-        }
-        if (variation != null ? !variation.equals(that.variation) : that.variation != null)
-        {
-            return false;
-        }
-        if (examples != null ? !examples.equals(that.examples) : that.examples != null)
-        {
-            return false;
-        }
-        if (tips != null ? !tips.equals(that.tips) : that.tips != null)
-        {
-            return false;
-        }
-        if (visualization != null ? !visualization.equals(that.visualization) : that.visualization != null)
-        {
-            return false;
-        }
-        if (folder != null ? !folder.equals(that.folder) : that.folder != null)
-        {
-            return false;
-        }
-        if (author != null ? !author.equals(that.author) : that.author != null)
-        {
-            return false;
-        }
-        if (hyperlinks != null ? !hyperlinks.equals(that.hyperlinks) : that.hyperlinks != null)
-        {
-            return false;
-        }
-        if (citations != null ? !citations.equals(that.citations) : that.citations != null)
-        {
-            return false;
-        }
-        if (elxMethodsId != null ? !elxMethodsId.equals(that.elxMethodsId) : that.elxMethodsId != null)
-        {
-            return false;
-        }
-        if (vendorId != null ? !vendorId.equals(that.vendorId) : that.vendorId != null)
-        {
-            return false;
-        }
-        if (dateModified != null ? !dateModified.equals(that.dateModified) : that.dateModified != null)
-        {
-            return false;
-        }
-
-        return true;
+        return this.imageFileNames;
     }
 
-    @Override
-    public int hashCode()
+    public void setImageFileNames(List<String> imageFileNames)
     {
-        int result1 = id != null ? id.hashCode() : 0;
-        result1 = 31 * result1 + (language != null ? language.hashCode() : 0);
-        result1 = 31 * result1 + (dateCreated != null ? dateCreated.hashCode() : 0);
-        result1 = 31 * result1 + (title != null ? title.hashCode() : 0);
-        result1 = 31 * result1 + (alternativeTitles != null ? alternativeTitles.hashCode() : 0);
-        result1 = 31 * result1 + (socialform != null ? socialform.hashCode() : 0);
-        result1 = 31 * result1 + (phase != null ? phase.hashCode() : 0);
-        result1 = 31 * result1 + (subphase != null ? subphase.hashCode() : 0);
-        result1 = 31 * result1 + (result != null ? result.hashCode() : 0);
-        result1 = 31 * result1 + (grouptype != null ? grouptype.hashCode() : 0);
-        result1 = 31 * result1 + (coursetype != null ? coursetype.hashCode() : 0);
-        result1 = 31 * result1 + (participantsMin != null ? participantsMin.hashCode() : 0);
-        result1 = 31 * result1 + (participantsMax != null ? participantsMax.hashCode() : 0);
-        result1 = 31 * result1 + (participantsComment != null ? participantsComment.hashCode() : 0);
-        result1 = 31 * result1 + (seating != null ? seating.hashCode() : 0);
-        result1 = 31 * result1 + (timeMin != null ? timeMin.hashCode() : 0);
-        result1 = 31 * result1 + (timeMax != null ? timeMax.hashCode() : 0);
-        result1 = 31 * result1 + (timeComment != null ? timeComment.hashCode() : 0);
-        result1 = 31 * result1 + (rating != null ? rating.hashCode() : 0);
-        result1 = 31 * result1 + (ourrating != null ? ourrating.hashCode() : 0);
-        result1 = 31 * result1 + (proceeding != null ? proceeding.hashCode() : 0);
-        result1 = 31 * result1 + (phaseproceeding != null ? phaseproceeding.hashCode() : 0);
-        result1 = 31 * result1 + (variation != null ? variation.hashCode() : 0);
-        result1 = 31 * result1 + (examples != null ? examples.hashCode() : 0);
-        result1 = 31 * result1 + (tips != null ? tips.hashCode() : 0);
-        result1 = 31 * result1 + (visualization != null ? visualization.hashCode() : 0);
-        result1 = 31 * result1 + (folder != null ? folder.hashCode() : 0);
-        result1 = 31 * result1 + (haspictures ? 1 : 0);
-        result1 = 31 * result1 + scope;
-        result1 = 31 * result1 + (author != null ? author.hashCode() : 0);
-        result1 = 31 * result1 + userrating;
-        result1 = 31 * result1 + (hyperlinks != null ? hyperlinks.hashCode() : 0);
-        result1 = 31 * result1 + (citations != null ? citations.hashCode() : 0);
-        result1 = 31 * result1 + (elxMethodsId != null ? elxMethodsId.hashCode() : 0);
-        result1 = 31 * result1 + (vendorId != null ? vendorId.hashCode() : 0);
-        result1 = 31 * result1 + (dateModified != null ? dateModified.hashCode() : 0);
-        return result1;
+        this.imageFileNames = imageFileNames;
     }
 }

@@ -1,6 +1,6 @@
 package org.mobidics.api.viewmodel;
 
-import org.mobidics.model.MethodsDeEntity;
+import org.mobidics.model.MobiDicsMethod;
 
 import java.util.Date;
 
@@ -10,9 +10,9 @@ import java.util.Date;
  */
 public class MethodViewModel
 {
-    private MethodsDeEntity method;
+    private MobiDicsMethod method;
 
-    public MethodViewModel(MethodsDeEntity method)
+    public MethodViewModel(MobiDicsMethod method)
     {
         this.method = method;
     }

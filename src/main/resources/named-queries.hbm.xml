@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping>
 
 <hibernate-mapping>
-    <!-- MethodsDeEntity -->
-    <query name="getAllMethods">from MethodsDeEntity</query>
-    <query name="getAllMethodsByName">from MethodsDeEntity where title like concat('%',:name,'%')</query>
+    <!--MethodGerman -->
+    <query name="getAllMethods">from MethodGerman</query>
+    <query name="getAllMethodsByName">from MethodGerman where title like concat('%',:name,'%')</query>
 </hibernate-mapping>

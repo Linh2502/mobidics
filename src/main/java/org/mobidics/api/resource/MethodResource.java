@@ -3,7 +3,8 @@ package org.mobidics.api.resource;
 import org.mobidics.api.viewmodel.MethodReducedViewModel;
 import org.mobidics.api.viewmodel.MethodViewModel;
 import org.mobidics.data.MethodDAO;
-import org.mobidics.model.MethodsDeEntity;
+import org.mobidics.model.MethodGerman;
+import org.mobidics.model.MobiDicsMethod;
 
 import javax.ws.rs.*;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -31,9 +32,9 @@ public class MethodResource
     public Response getAllMethods(@QueryParam("name") @DefaultValue("") String methodName)
     {
         MethodDAO methodDAO = new MethodDAO();
-        List<MethodsDeEntity> methodsRaw = methodDAO.getAllMethodsByName(methodName);
+        List<MethodGerman> methodsRaw = methodDAO.getAllMethodsByName(methodName);
         List<MethodReducedViewModel> methods = new LinkedList<>();
-        for (MethodsDeEntity methodRaw : methodsRaw)
+        for (MethodGerman methodRaw : methodsRaw)
         {
             methods.add(new MethodReducedViewModel(methodRaw));
         }
@@ -46,7 +47,7 @@ public class MethodResource
     public Response getMethodById(@PathParam("id") String methodId)
     {
         MethodDAO methodDAO = new MethodDAO();
-        MethodsDeEntity result = methodDAO.getMethodById(methodId);
+        MobiDicsMethod result = methodDAO.getMethodById(methodId);
         if (result == null)
         {
             return Response.status(Response.Status.NOT_FOUND).build();

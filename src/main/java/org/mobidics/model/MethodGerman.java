@@ -5,12 +5,14 @@ import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Long Bui on 26.04.17.
  * E-Mail: giaolong.bui@student.fhws.de
  */
-@Entity @Table(name = "methods_de", schema = "mobidics", catalog = "") public class MethodsDeEntity
+@Entity @Table(name = "methods_de", schema = "mobidics", catalog = "")
+public class MethodGerman extends MobiDicsMethod
 {
     private String id;
     private String language;
@@ -48,6 +50,7 @@ import java.util.Date;
     private String elxMethodsId;
     private String vendorId;
     private Date dateModified;
+    private List<String> imageFileNames;
 
     @Id
     @Column(name = "id", nullable = false, length = 36)
@@ -481,5 +484,18 @@ import java.util.Date;
     public void setDateModified(Date dateModified)
     {
         this.dateModified = dateModified;
+    }
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "files", joinColumns = @JoinColumn(name = "method_id"))
+    @Column(name = "filename")
+    public List<String> getImageFileNames()
+    {
+        return this.imageFileNames;
+    }
+
+    public void setImageFileNames(List<String> imageFileNames)
+    {
+        this.imageFileNames = imageFileNames;
     }
 }
