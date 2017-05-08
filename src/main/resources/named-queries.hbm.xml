@@ -2,7 +2,9 @@
 <!DOCTYPE hibernate-mapping>
 
 <hibernate-mapping>
-    <!--MethodGerman -->
+    <!-- MethodGerman -->
     <query name="getAllMethods">from MethodGerman</query>
     <query name="getAllMethodsByName">from MethodGerman where title like concat('%',:name,'%')</query>
+    <!-- User -->
+    <query name="authenticate">from User where username = :username and password = :password</query>
 </hibernate-mapping>

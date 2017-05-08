@@ -31,16 +31,12 @@ public class UserResource
     @Path("/{username}")
     public Response getUserByUsername(@PathParam("username") String username)
     {
-        try
+        User loadedUser = new UserDAO().getUserByUsername(username);
+        if (loadedUser == null)
         {
-            User loadedUser = new UserDAO().getUserByUsername(username);
-            return Response.ok(loadedUser).build();
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
-        return Response.serverError().build();
+        return Response.ok(loadedUser).build();
     }
 
     @GET

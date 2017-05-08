@@ -1,5 +1,6 @@
 package org.mobidics.api;
 
+import org.mobidics.api.resource.AuthResource;
 import org.mobidics.api.resource.MethodResource;
 import org.mobidics.api.resource.UserResource;
 import org.mobidics.api.filter.CorsFilter;
@@ -18,6 +19,7 @@ public class MobiDics extends ResourceConfig
     {
         this.register(CorsFilter.class)
             .register(UserResource.class)
-            .register(MethodResource.class);
+            .register(MethodResource.class)
+            .register(AuthResource.class);
     }
 }
