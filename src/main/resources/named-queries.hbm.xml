@@ -5,6 +5,10 @@
     <!-- MethodGerman -->
     <query name="getAllMethods">from MethodGerman</query>
     <query name="getAllMethodsByName">from MethodGerman where title like concat('%',:name,'%')</query>
+    <!-- Method -->
+    <sql-query name="getFavoriteIdsOfUser">
+        SELECT method_id FROM favorites WHERE username = :username
+    </sql-query>
     <!-- User -->
     <query name="authenticate">from User where username = :username and password = :password</query>
 </hibernate-mapping>

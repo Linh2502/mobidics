@@ -1,14 +1,18 @@
 package org.mobidics.api.resource;
 
 
+import org.mobidics.api.filter.auth.Roles;
 import org.mobidics.data.UserDAO;
 import org.mobidics.model.User;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ResourceContext;
 import javax.ws.rs.core.*;
 import java.util.Set;
+
+import static org.mobidics.api.filter.auth.AuthenticationRequestFilter.AUTHENTICATED_USER;
 
 /**
  * Created by Long Bui on 24.02.17.
@@ -21,11 +25,9 @@ public class UserResource
     UriInfo uriInfo;
 
     @Context
-    ResourceContext resourceContext;
-
-    @Context
     ContainerRequestContext requestContext;
 
+    @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{username}")
@@ -39,13 +41,14 @@ public class UserResource
         return Response.ok(loadedUser).build();
     }
 
+    @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/{username}/favorites")
-    public Response getFavoritesOfUser(@PathParam("username") String username)
+    @Path("/me")
+    public Response getPersonalProfile()
     {
-        User loadedUser = new UserDAO().getUserByUsername(username);
-        Set<String> favorites = loadedUser.getFavorites();
-        return Response.ok(favorites).build();
+        User authenticatedUser = new UserDAO()
+                .getUserByUsername((String) requestContext.getProperty(AUTHENTICATED_USER));
+        return Response.ok(authenticatedUser).build();
     }
 }

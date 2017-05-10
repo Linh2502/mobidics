@@ -3,8 +3,11 @@ package org.mobidics.data;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.mobidics.model.MethodGerman;
+import org.mobidics.model.MobiDicsMethod;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Long Bui on 27.04.17.
@@ -39,6 +42,17 @@ public class MethodDAO
     {
         Session session = SessionUtil.getSession();
         MethodGerman result = session.get(MethodGerman.class, id);
+        session.close();
+        return result;
+    }
+
+    public Set<String> getFavoriteIdsOfUsername(String username)
+    {
+        Set<String> result;
+        Session session = SessionUtil.getSession();
+        Query namedQuery = session.getNamedNativeQuery("getFavoriteIdsOfUser");
+        namedQuery.setParameter("username", username);
+        result = new HashSet<>(namedQuery.list());
         session.close();
         return result;
     }
