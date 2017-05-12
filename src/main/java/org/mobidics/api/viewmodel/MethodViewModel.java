@@ -2,7 +2,9 @@ package org.mobidics.api.viewmodel;
 
 import org.mobidics.model.MobiDicsMethod;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Long Bui on 27.04.17.
@@ -10,6 +12,8 @@ import java.util.Date;
  */
 public class MethodViewModel
 {
+    static final String IMAGE_PREFIX = "https://mobidics.org/mobidics/files/";
+
     private MobiDicsMethod method;
 
     public MethodViewModel(MobiDicsMethod method)
@@ -130,5 +134,20 @@ public class MethodViewModel
     public String getVisualization()
     {
         return method.getVisualization();
+    }
+
+    public List<String> getImages()
+    {
+        List<String> result = new ArrayList<>(method.getImageFileNames().size());
+        for (String string : method.getImageFileNames())
+        {
+            result.add(IMAGE_PREFIX + method.getFolder() + "/images/" + string);
+        }
+        return result;
+    }
+
+    public String getThumbnail()
+    {
+        return IMAGE_PREFIX + method.getFolder() + "/default.png";
     }
 }

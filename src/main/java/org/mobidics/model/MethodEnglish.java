@@ -8,7 +8,7 @@ import java.util.List;
  * Created by Long Bui on 26.04.17.
  * E-Mail: giaolong.bui@student.fhws.de
  */
-@Entity @Table(name = "methods_en", schema = "mobidics", catalog = "")
+@Entity @Table(name = "methods_en", schema = "mobidics")
 public class MethodEnglish extends MobiDicsMethod
 {
     private String id;
@@ -62,7 +62,7 @@ public class MethodEnglish extends MobiDicsMethod
     }
 
     @Basic
-    @Column(name = "language", nullable = false, length = 255)
+    @Column(name = "language", nullable = false)
     public String getLanguage()
     {
         return language;
@@ -86,7 +86,7 @@ public class MethodEnglish extends MobiDicsMethod
     }
 
     @Basic
-    @Column(name = "title", nullable = false, length = 255)
+    @Column(name = "title", nullable = false)
     public String getTitle()
     {
         return title;
@@ -98,7 +98,7 @@ public class MethodEnglish extends MobiDicsMethod
     }
 
     @Basic
-    @Column(name = "alternative_titles", nullable = true, length = -1)
+    @Column(name = "alternative_titles", length = -1)
     public String getAlternativeTitles()
     {
         return alternativeTitles;
@@ -110,7 +110,7 @@ public class MethodEnglish extends MobiDicsMethod
     }
 
     @Basic
-    @Column(name = "socialform", nullable = true, length = 100)
+    @Column(name = "socialform", length = 100)
     public String getSocialform()
     {
         return socialform;
@@ -122,7 +122,7 @@ public class MethodEnglish extends MobiDicsMethod
     }
 
     @Basic
-    @Column(name = "phase", nullable = true, length = 100)
+    @Column(name = "phase", length = 100)
     public String getPhase()
     {
         return phase;
@@ -134,7 +134,7 @@ public class MethodEnglish extends MobiDicsMethod
     }
 
     @Basic
-    @Column(name = "subphase", nullable = true, length = 100)
+    @Column(name = "subphase", length = 100)
     public String getSubphase()
     {
         return subphase;
@@ -146,7 +146,7 @@ public class MethodEnglish extends MobiDicsMethod
     }
 
     @Basic
-    @Column(name = "result", nullable = true, length = -1)
+    @Column(name = "result", length = -1)
     public String getResult()
     {
         return result;
@@ -158,7 +158,7 @@ public class MethodEnglish extends MobiDicsMethod
     }
 
     @Basic
-    @Column(name = "grouptype", nullable = true)
+    @Column(name = "grouptype")
     public Integer getGrouptype()
     {
         return grouptype;
@@ -170,7 +170,7 @@ public class MethodEnglish extends MobiDicsMethod
     }
 
     @Basic
-    @Column(name = "coursetype", nullable = true, length = 100)
+    @Column(name = "coursetype", length = 100)
     public String getCoursetype()
     {
         return coursetype;
@@ -182,7 +182,7 @@ public class MethodEnglish extends MobiDicsMethod
     }
 
     @Basic
-    @Column(name = "participants_min", nullable = true)
+    @Column(name = "participants_min")
     public Integer getParticipantsMin()
     {
         return participantsMin;
@@ -194,7 +194,7 @@ public class MethodEnglish extends MobiDicsMethod
     }
 
     @Basic
-    @Column(name = "participants_max", nullable = true)
+    @Column(name = "participants_max")
     public Integer getParticipantsMax()
     {
         return participantsMax;
@@ -206,7 +206,7 @@ public class MethodEnglish extends MobiDicsMethod
     }
 
     @Basic
-    @Column(name = "participants_comment", nullable = true, length = -1)
+    @Column(name = "participants_comment", length = -1)
     public String getParticipantsComment()
     {
         return participantsComment;
@@ -218,7 +218,7 @@ public class MethodEnglish extends MobiDicsMethod
     }
 
     @Basic
-    @Column(name = "seating", nullable = true, length = -1)
+    @Column(name = "seating", length = -1)
     public String getSeating()
     {
         return seating;
@@ -230,7 +230,7 @@ public class MethodEnglish extends MobiDicsMethod
     }
 
     @Basic
-    @Column(name = "time_min", nullable = true)
+    @Column(name = "time_min")
     public Integer getTimeMin()
     {
         return timeMin;
@@ -242,7 +242,7 @@ public class MethodEnglish extends MobiDicsMethod
     }
 
     @Basic
-    @Column(name = "time_max", nullable = true)
+    @Column(name = "time_max")
     public Integer getTimeMax()
     {
         return timeMax;
@@ -254,7 +254,7 @@ public class MethodEnglish extends MobiDicsMethod
     }
 
     @Basic
-    @Column(name = "time_comment", nullable = true, length = -1)
+    @Column(name = "time_comment", length = -1)
     public String getTimeComment()
     {
         return timeComment;
@@ -266,7 +266,7 @@ public class MethodEnglish extends MobiDicsMethod
     }
 
     @Basic
-    @Column(name = "rating", nullable = true, length = -1)
+    @Column(name = "rating", length = -1)
     public String getRating()
     {
         return rating;
@@ -278,7 +278,7 @@ public class MethodEnglish extends MobiDicsMethod
     }
 
     @Basic
-    @Column(name = "ourrating", nullable = true, length = -1)
+    @Column(name = "ourrating", length = -1)
     public String getOurrating()
     {
         return ourrating;
@@ -290,7 +290,7 @@ public class MethodEnglish extends MobiDicsMethod
     }
 
     @Basic
-    @Column(name = "proceeding", nullable = true, length = -1)
+    @Column(name = "proceeding", length = -1)
     public String getProceeding()
     {
         return proceeding;
@@ -302,7 +302,7 @@ public class MethodEnglish extends MobiDicsMethod
     }
 
     @Basic
-    @Column(name = "phaseproceeding", nullable = true, length = -1)
+    @Column(name = "phaseproceeding", length = -1)
     public String getPhaseproceeding()
     {
         return phaseproceeding;
@@ -314,7 +314,7 @@ public class MethodEnglish extends MobiDicsMethod
     }
 
     @Basic
-    @Column(name = "variation", nullable = true, length = -1)
+    @Column(name = "variation", length = -1)
     public String getVariation()
     {
         return variation;
@@ -326,7 +326,7 @@ public class MethodEnglish extends MobiDicsMethod
     }
 
     @Basic
-    @Column(name = "examples", nullable = true, length = -1)
+    @Column(name = "examples", length = -1)
     public String getExamples()
     {
         return examples;
@@ -338,7 +338,7 @@ public class MethodEnglish extends MobiDicsMethod
     }
 
     @Basic
-    @Column(name = "tips", nullable = true, length = -1)
+    @Column(name = "tips", length = -1)
     public String getTips()
     {
         return tips;
@@ -350,7 +350,7 @@ public class MethodEnglish extends MobiDicsMethod
     }
 
     @Basic
-    @Column(name = "visualization", nullable = true, length = -1)
+    @Column(name = "visualization", length = -1)
     public String getVisualization()
     {
         return visualization;
@@ -362,7 +362,7 @@ public class MethodEnglish extends MobiDicsMethod
     }
 
     @Basic
-    @Column(name = "folder", nullable = true, length = 255)
+    @Column(name = "folder")
     public String getFolder()
     {
         return folder;
@@ -374,7 +374,7 @@ public class MethodEnglish extends MobiDicsMethod
     }
 
     @Basic
-    @Column(name = "haspictures", nullable = true)
+    @Column(name = "haspictures")
     public boolean isHaspictures()
     {
         return haspictures;
@@ -398,7 +398,7 @@ public class MethodEnglish extends MobiDicsMethod
     }
 
     @Basic
-    @Column(name = "author", nullable = true, length = 100)
+    @Column(name = "author", length = 100)
     public String getAuthor()
     {
         return author;
@@ -422,7 +422,7 @@ public class MethodEnglish extends MobiDicsMethod
     }
 
     @Basic
-    @Column(name = "hyperlinks", nullable = true, length = -1)
+    @Column(name = "hyperlinks", length = -1)
     public String getHyperlinks()
     {
         return hyperlinks;
@@ -434,7 +434,7 @@ public class MethodEnglish extends MobiDicsMethod
     }
 
     @Basic
-    @Column(name = "citations", nullable = true, length = -1)
+    @Column(name = "citations", length = -1)
     public String getCitations()
     {
         return citations;
@@ -446,7 +446,7 @@ public class MethodEnglish extends MobiDicsMethod
     }
 
     @Basic
-    @Column(name = "elx_methods_id", nullable = true, length = 36)
+    @Column(name = "elx_methods_id", length = 36)
     public String getElxMethodsId()
     {
         return elxMethodsId;

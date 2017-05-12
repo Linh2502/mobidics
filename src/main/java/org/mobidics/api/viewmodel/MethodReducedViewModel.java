@@ -29,4 +29,9 @@ public class MethodReducedViewModel
     {
         return method.getUserrating();
     }
+
+    public String getThumbnail()
+    {
+        return MethodViewModel.IMAGE_PREFIX + method.getFolder() + "/default.png";
+    }
 }
