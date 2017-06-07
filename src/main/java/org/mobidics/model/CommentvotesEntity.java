@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 
 /**
  * Created by Long Bui on 26.04.17.
- * E-Mail: giaolong.bui@student.fhws.de
+ * E-Mail: longbui1992@gmail.com
  */
 @Entity @Table(name = "commentvotes", schema = "mobidics", catalog = "") @IdClass(CommentvotesEntityPK.class) public class CommentvotesEntity
 {

@@ -11,7 +11,7 @@ import java.util.Set;
 
 /**
  * Created by Long Bui on 27.04.17.
- * E-Mail: giaolong.bui@student.fhws.de
+ * E-Mail: longbui1992@gmail.com
  */
 public class MethodDAO
 {

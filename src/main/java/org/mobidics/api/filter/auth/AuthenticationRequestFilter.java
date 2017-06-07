@@ -25,7 +25,7 @@ import static org.mobidics.api.resource.AuthResource.*;
 
 /**
  * Created by Long Bui on 01.03.17.
- * E-Mail: giaolong.bui@student.fhws.de
+ * E-Mail: longbui1992@gmail.com
  */
 @Provider
 public class AuthenticationRequestFilter implements ContainerRequestFilter

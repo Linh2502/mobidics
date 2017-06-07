@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * Created by Long Bui on 06.05.17.
- * E-Mail: giaolong.bui@student.fhws.de
+ * E-Mail: longbui1992@gmail.com
  */
 public abstract class MobiDicsMethod
 {

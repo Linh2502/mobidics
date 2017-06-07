@@ -2,7 +2,7 @@ package org.mobidics.api.viewmodel.enums;
 
 /**
  * Created by Long Bui on 26.04.17.
- * E-Mail: giaolong.bui@student.fhws.de
+ * E-Mail: longbui1992@gmail.com
  */
 public class UserEnums
 {

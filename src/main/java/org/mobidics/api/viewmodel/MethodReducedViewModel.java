@@ -4,7 +4,7 @@ import org.mobidics.model.MobiDicsMethod;
 
 /**
  * Created by Long Bui on 03.05.17.
- * E-Mail: giaolong.bui@student.fhws.de
+ * E-Mail: longbui1992@gmail.com
  */
 public class MethodReducedViewModel
 {

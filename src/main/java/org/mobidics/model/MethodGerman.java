@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * Created by Long Bui on 26.04.17.
- * E-Mail: giaolong.bui@student.fhws.de
+ * E-Mail: longbui1992@gmail.com
  */
 @Entity @Table(name = "methods_de", schema = "mobidics", catalog = "")
 public class MethodGerman extends MobiDicsMethod

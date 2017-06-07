@@ -16,7 +16,7 @@ import static org.mobidics.api.filter.auth.AuthenticationRequestFilter.AUTHENTIC
 
 /**
  * Created by Long Bui on 24.02.17.
- * E-Mail: giaolong.bui@student.fhws.de
+ * E-Mail: longbui1992@gmail.com
  */
 @Path("/users")
 public class UserResource

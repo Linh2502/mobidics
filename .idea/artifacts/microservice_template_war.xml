@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="microservice-template:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="social-network-1.0-SNAPSHOT.war">
-      <element id="artifact" artifact-name="microservice-template:war exploded" />
-    </root>
-  </artifact>
-</component>

@@ -9,7 +9,7 @@ import static org.mobidics.api.resource.AuthResource.JWT_HEADER;
 
 /**
  * Created by Long Bui on 17.04.16.
- * E-Mail: giaolong.bui@student.fhws.de
+ * E-Mail: longbui1992@gmail.com
  */
 public class CorsFilter implements ContainerResponseFilter
 {

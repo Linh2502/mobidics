@@ -22,7 +22,7 @@ import java.util.Date;
 
 /**
  * Created by Long Bui on 08.05.17.
- * E-Mail: giaolong.bui@student.fhws.de
+ * E-Mail: longbui1992@gmail.com
  */
 @Path("/auth")
 public class AuthResource

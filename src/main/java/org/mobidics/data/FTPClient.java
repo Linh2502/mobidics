@@ -1,10 +1,9 @@
 package org.mobidics.data;
 
 /**
- * Created by Long Bui on 26.04.17.
+ * Created by Long on 07.06.2017.
  * E-Mail: longbui1992@gmail.com
  */
-public class FacultyDAO
+public class FTPClient
 {
-
 }
