@@ -61,6 +61,7 @@
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.8.4" />
           <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.10" />
           <element id="library" level="project" name="Maven: org.bouncycastle:bcprov-jdk15on:1.55" />
+          <element id="library" level="project" name="Maven: commons-net:commons-net:3.6" />
         </element>
       </element>
       <element id="directory" name="META-INF">

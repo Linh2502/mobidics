@@ -56,4 +56,10 @@ public class MethodDAO
         session.close();
         return result;
     }
+
+    public boolean addMethod()
+    {
+        // TODO
+        return true;
+    }
 }

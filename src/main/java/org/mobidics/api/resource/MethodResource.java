@@ -4,6 +4,7 @@ import org.mobidics.api.filter.auth.Roles;
 import org.mobidics.api.viewmodel.MethodReducedViewModel;
 import org.mobidics.api.viewmodel.MethodViewModel;
 import org.mobidics.data.MethodDAO;
+import org.mobidics.data.MobidicsFTPDAO;
 import org.mobidics.data.UserDAO;
 import org.mobidics.model.MethodGerman;
 import org.mobidics.model.MobiDicsMethod;
@@ -73,5 +74,23 @@ public class MethodResource
                 .getFavoriteIdsOfUsername((String) requestContext.getProperty(
                         AUTHENTICATED_USER));
         return Response.ok(favorites).build();
+    }
+
+    @RolesAllowed({Roles.USER, Roles.ADMIN})
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addMethod(MethodViewModel methodViewModel)
+    {
+        MobidicsFTPDAO ftpDAO = new MobidicsFTPDAO();
+        ftpDAO.uploadFileToServer(null);
+        return Response.ok().build();
+    }
+
+    @RolesAllowed({Roles.ADMIN})
+    @DELETE
+    @Path("{id}")
+    public Response deleteMethod(@PathParam("id") String id)
+    {
+        return Response.ok().build();
     }
 }
