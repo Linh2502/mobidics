@@ -1,13 +1,13 @@
 package org.mobidics.data;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.mobidics.api.viewmodel.MethodViewModel;
 import org.mobidics.model.MethodGerman;
 import org.mobidics.model.MobiDicsMethod;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Long Bui on 27.04.17.
@@ -23,7 +23,7 @@ public class MethodDAO
     {
         Session session = SessionUtil.getSession();
         List<MethodGerman> result = null;
-        Query query = null;
+        Query query;
         if (methodName.isEmpty())
         {
             query = session.getNamedQuery("getAllMethods");
@@ -57,9 +57,26 @@ public class MethodDAO
         return result;
     }
 
-    public boolean addMethod()
+    public boolean addMethod(MethodViewModel newMethod)
     {
+        boolean transactionSuccessful = true;
+        Session session = SessionUtil.getSession();
+        Transaction tx = session.beginTransaction();
+
+        Query namedQuery = session.getNamedNativeQuery("" + newMethod.getLanguage());
+        String newUuid = String.valueOf(UUID.randomUUID());
+        String folder = new Date().getTime() + "." + Math.random() * 100;
         // TODO
-        return true;
+        try
+        {
+            tx.commit();
+        }
+        catch (Exception e)
+        {
+            tx.rollback();
+            transactionSuccessful = false;
+        }
+        session.close();
+        return transactionSuccessful;
     }
 }

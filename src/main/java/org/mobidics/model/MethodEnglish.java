@@ -2,6 +2,7 @@ package org.mobidics.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ public class MethodEnglish extends MobiDicsMethod
 {
     private String id;
     private String language;
-    private Timestamp dateCreated;
+    private Date dateCreated;
     private String title;
     private String alternativeTitles;
     private String socialform;
@@ -46,7 +47,7 @@ public class MethodEnglish extends MobiDicsMethod
     private String citations;
     private String elxMethodsId;
     private String vendorId;
-    private Timestamp dateModified;
+    private Date dateModified;
     private List<String> imageFileNames;
 
     @Id
@@ -75,12 +76,13 @@ public class MethodEnglish extends MobiDicsMethod
 
     @Basic
     @Column(name = "date_created", nullable = false)
-    public Timestamp getDateCreated()
+    @Temporal(TemporalType.DATE)
+    public Date getDateCreated()
     {
         return dateCreated;
     }
 
-    public void setDateCreated(Timestamp dateCreated)
+    public void setDateCreated(Date dateCreated)
     {
         this.dateCreated = dateCreated;
     }
@@ -471,12 +473,13 @@ public class MethodEnglish extends MobiDicsMethod
 
     @Basic
     @Column(name = "date_modified", nullable = false)
-    public Timestamp getDateModified()
+    @Temporal(TemporalType.DATE)
+    public Date getDateModified()
     {
         return dateModified;
     }
 
-    public void setDateModified(Timestamp dateModified)
+    public void setDateModified(Date dateModified)
     {
         this.dateModified = dateModified;
     }
@@ -487,10 +490,5 @@ public class MethodEnglish extends MobiDicsMethod
     public List<String> getImageFileNames()
     {
         return this.imageFileNames;
-    }
-
-    public void setImageFileNames(List<String> imageFileNames)
-    {
-        this.imageFileNames = imageFileNames;
     }
 }

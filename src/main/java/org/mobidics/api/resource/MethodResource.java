@@ -79,11 +79,11 @@ public class MethodResource
     @RolesAllowed({Roles.USER, Roles.ADMIN})
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addMethod(MethodViewModel methodViewModel)
+    public Response addMethod(MethodViewModel newMethod)
     {
         MobidicsFTPDAO ftpDAO = new MobidicsFTPDAO();
-        ftpDAO.uploadFileToServer(null);
-        return Response.ok().build();
+//        ftpDAO.uploadFileToServer(null);
+        return Response.ok(newMethod.getTitle()).build();
     }
 
     @RolesAllowed({Roles.ADMIN})

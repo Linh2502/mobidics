@@ -493,9 +493,4 @@ public class MethodGerman extends MobiDicsMethod
     {
         return this.imageFileNames;
     }
-
-    public void setImageFileNames(List<String> imageFileNames)
-    {
-        this.imageFileNames = imageFileNames;
-    }
 }
