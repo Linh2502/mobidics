@@ -9,6 +9,26 @@
     <sql-query name="getFavoriteIdsOfUser">
         SELECT method_id FROM favorites WHERE username = :username
     </sql-query>
+    <sql-query name="insertMethod_de">
+        INSERT INTO
+        methods_de(id,language,title,alternative_titles,socialform,phase,subphase,result,grouptype,coursetype,participants_min,participants_max,participants_comment,seating,time_min,time_max,time_comment,rating,ourrating,proceeding,phaseproceeding,variation,examples,tips,visualization,folder,haspictures,scope,hyperlinks,citations,vendor_id,date_created)
+        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+    </sql-query>
+    <sql-query name="insertMethod_en">
+        INSERT INTO
+        methods_en(id,language,title,alternative_titles,socialform,phase,subphase,result,grouptype,coursetype,participants_min,participants_max,participants_comment,seating,time_min,time_max,time_comment,rating,ourrating,proceeding,phaseproceeding,variation,examples,tips,visualization,folder,haspictures,scope,hyperlinks,citations,vendor_id,date_created)
+        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+    </sql-query>
+    <sql-query name="insertMethod_fr">
+        INSERT INTO
+        methods_fr(id,language,title,alternative_titles,socialform,phase,subphase,result,grouptype,coursetype,participants_min,participants_max,participants_comment,seating,time_min,time_max,time_comment,rating,ourrating,proceeding,phaseproceeding,variation,examples,tips,visualization,folder,haspictures,scope,hyperlinks,citations,vendor_id,date_created)
+        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+    </sql-query>
+    <sql-query name="insertMethod_es">
+        INSERT INTO
+        methods_es(id,language,title,alternative_titles,socialform,phase,subphase,result,grouptype,coursetype,participants_min,participants_max,participants_comment,seating,time_min,time_max,time_comment,rating,ourrating,proceeding,phaseproceeding,variation,examples,tips,visualization,folder,haspictures,scope,hyperlinks,citations,vendor_id,date_created)
+        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+    </sql-query>
     <!-- User -->
     <query name="authenticate">from User where username = :username and password = :password</query>
 </hibernate-mapping>

@@ -7,7 +7,8 @@ import java.sql.Timestamp;
  * Created by Long Bui on 26.04.17.
  * E-Mail: longbui1992@gmail.com
  */
-@Entity @Table(name = "comments", schema = "mobidics", catalog = "") public class CommentsEntity
+@Entity @Table(name = "comments", schema = "mobidics", catalog = "")
+public class CommentsEntity
 {
     private String id;
     private String methodId;

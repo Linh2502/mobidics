@@ -7,7 +7,7 @@ import java.sql.Timestamp;
  * Created by Long Bui on 26.04.17.
  * E-Mail: longbui1992@gmail.com
  */
-@Entity @Table(name = "materials", schema = "mobidics", catalog = "") public class MaterialsEntity
+@Entity @Table(name = "materials", schema = "mobidics", catalog = "") public class Material
 {
     private String id;
     private String defaultLanguage;
@@ -113,7 +113,7 @@ import java.sql.Timestamp;
             return false;
         }
 
-        MaterialsEntity that = (MaterialsEntity) o;
+        Material that = (Material) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null)
         {

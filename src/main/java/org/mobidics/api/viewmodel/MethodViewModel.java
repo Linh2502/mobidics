@@ -14,7 +14,8 @@ import java.util.List;
  */
 public class MethodViewModel
 {
-    static final String IMAGE_PREFIX = "https://mobidics.org/mobidics/files/";
+    // TODO change to liveserver
+    static final String IMAGE_PREFIX = "http://localhost:2480/mobidics/files/";
     private String id;
     private String language;
     private Date dateCreated;
@@ -42,15 +43,14 @@ public class MethodViewModel
     private String tips;
     private String visualization;
     private String folder;
-    private boolean haspictures;
-    private int scope;
+    private char scope;
     private String author;
     private int userrating;
     private String hyperlinks;
     private String citations;
     private String vendorId;
     private Date dateModified;
-    private List<String> imageFileNames;
+    private List<String> imageFileNames = new ArrayList<>();
 
     private String uploadedThumbnailDataUri;
 
@@ -87,7 +87,6 @@ public class MethodViewModel
         this.tips = method.getTips();
         this.visualization = method.getVisualization();
         this.folder = method.getFolder();
-        this.haspictures = method.isHaspictures();
         this.scope = method.getScope();
         this.author = method.getAuthor();
         this.userrating = method.getUserrating();
@@ -252,7 +251,7 @@ public class MethodViewModel
         return this.citations;
     }
 
-    public int getScope()
+    public char getScope()
     {
         return this.scope;
     }
@@ -417,12 +416,7 @@ public class MethodViewModel
         this.folder = folder;
     }
 
-    public void setHaspictures(boolean haspictures)
-    {
-        this.haspictures = haspictures;
-    }
-
-    public void setScope(int scope)
+    public void setScope(char scope)
     {
         this.scope = scope;
     }

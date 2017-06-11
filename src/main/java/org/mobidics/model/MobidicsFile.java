@@ -2,17 +2,20 @@ package org.mobidics.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by Long Bui on 26.04.17.
  * E-Mail: longbui1992@gmail.com
  */
-@Entity @Table(name = "files", schema = "mobidics", catalog = "") @IdClass(FilesEntityPK.class) public class FilesEntity
+@Entity @Table(name = "files", schema = "mobidics", catalog = "")
+@IdClass(FilesEntityPK.class)
+public class MobidicsFile
 {
     private String methodId;
     private String filename;
-    private byte displayOrder;
-    private Timestamp dateModified;
+    private short displayOrder;
+    private Date dateModified;
 
     @Id
     @Column(name = "method_id", nullable = false, length = 36)
@@ -40,24 +43,25 @@ import java.sql.Timestamp;
 
     @Basic
     @Column(name = "display_order", nullable = false)
-    public byte getDisplayOrder()
+    public short getDisplayOrder()
     {
         return displayOrder;
     }
 
-    public void setDisplayOrder(byte displayOrder)
+    public void setDisplayOrder(short displayOrder)
     {
         this.displayOrder = displayOrder;
     }
 
     @Basic
     @Column(name = "date_modified", nullable = false)
-    public Timestamp getDateModified()
+    @Temporal(TemporalType.DATE)
+    public Date getDateModified()
     {
         return dateModified;
     }
 
-    public void setDateModified(Timestamp dateModified)
+    public void setDateModified(Date dateModified)
     {
         this.dateModified = dateModified;
     }
@@ -74,7 +78,7 @@ import java.sql.Timestamp;
             return false;
         }
 
-        FilesEntity that = (FilesEntity) o;
+        MobidicsFile that = (MobidicsFile) o;
 
         if (displayOrder != that.displayOrder)
         {

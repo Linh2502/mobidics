@@ -7,7 +7,9 @@ import java.sql.Timestamp;
  * Created by Long Bui on 26.04.17.
  * E-Mail: longbui1992@gmail.com
  */
-@Entity @Table(name = "commentvotes", schema = "mobidics", catalog = "") @IdClass(CommentvotesEntityPK.class) public class CommentvotesEntity
+@Entity @Table(name = "commentvotes", schema = "mobidics", catalog = "")
+@IdClass(CommentvotesEntityPK.class)
+public class CommentvotesEntity
 {
     private String username;
     private String commentId;

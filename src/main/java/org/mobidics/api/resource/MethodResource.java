@@ -5,10 +5,8 @@ import org.mobidics.api.viewmodel.MethodReducedViewModel;
 import org.mobidics.api.viewmodel.MethodViewModel;
 import org.mobidics.data.MethodDAO;
 import org.mobidics.data.MobidicsFTPDAO;
-import org.mobidics.data.UserDAO;
 import org.mobidics.model.MethodGerman;
 import org.mobidics.model.MobiDicsMethod;
-import org.mobidics.model.User;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
@@ -81,9 +79,9 @@ public class MethodResource
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addMethod(MethodViewModel newMethod)
     {
-        MobidicsFTPDAO ftpDAO = new MobidicsFTPDAO();
-//        ftpDAO.uploadFileToServer(null);
-        return Response.ok(newMethod.getTitle()).build();
+        MethodDAO methodDAO = new MethodDAO();
+        boolean added = methodDAO.addMethod(newMethod);
+        return Response.ok(added).build();
     }
 
     @RolesAllowed({Roles.ADMIN})
@@ -91,6 +89,8 @@ public class MethodResource
     @Path("{id}")
     public Response deleteMethod(@PathParam("id") String id)
     {
+        MethodDAO methodDAO = new MethodDAO();
+        boolean deleted = methodDAO.deleteMethodById(id);
         return Response.ok().build();
     }
 }

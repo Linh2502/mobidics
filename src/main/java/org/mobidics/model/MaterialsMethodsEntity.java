@@ -7,7 +7,9 @@ import java.sql.Timestamp;
  * Created by Long Bui on 26.04.17.
  * E-Mail: longbui1992@gmail.com
  */
-@Entity @Table(name = "materials_methods", schema = "mobidics", catalog = "") @IdClass(MaterialsMethodsEntityPK.class) public class MaterialsMethodsEntity
+@Entity @Table(name = "materials_methods", schema = "mobidics", catalog = "")
+@IdClass(MaterialsMethodsEntityPK.class)
+public class MaterialsMethodsEntity
 {
     private String methodId;
     private String materialId;

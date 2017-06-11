@@ -40,7 +40,7 @@ public class MethodEnglish extends MobiDicsMethod
     private String visualization;
     private String folder;
     private boolean haspictures;
-    private int scope;
+    private char scope;
     private String author;
     private int userrating;
     private String hyperlinks;
@@ -389,12 +389,12 @@ public class MethodEnglish extends MobiDicsMethod
 
     @Basic
     @Column(name = "scope", nullable = false)
-    public int getScope()
+    public char getScope()
     {
         return scope;
     }
 
-    public void setScope(int scope)
+    public void setScope(char scope)
     {
         this.scope = scope;
     }
@@ -490,5 +490,10 @@ public class MethodEnglish extends MobiDicsMethod
     public List<String> getImageFileNames()
     {
         return this.imageFileNames;
+    }
+
+    public void setImageFileNames(List<String> imageFileNames)
+    {
+        this.imageFileNames = imageFileNames;
     }
 }
