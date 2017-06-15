@@ -5,8 +5,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.mobidics.api.viewmodel.MethodViewModel;
 import org.mobidics.data.util.FilenameUtils;
-import org.mobidics.model.MethodGerman;
-import org.mobidics.model.MobidicsFile;
+import org.mobidics.model.*;
 
 import java.util.*;
 
@@ -95,7 +94,7 @@ public class MethodDAO
             namedQuery.setParameter(23, newMethod.getTips());
             namedQuery.setParameter(24, newMethod.getVisualization());
             namedQuery.setParameter(25, folder);
-            namedQuery.setParameter(26, !newMethod.getImageDataUris().isEmpty());
+            namedQuery.setParameter(26, newMethod.getImageDataUris().isEmpty() ? 1 : 2);
             namedQuery.setParameter(27, newMethod.getScope());
             namedQuery.setParameter(28, newMethod.getWeblinks());
             namedQuery.setParameter(29, newMethod.getCitations());
@@ -103,19 +102,22 @@ public class MethodDAO
             namedQuery.setParameter(31, new Date());
             namedQuery.executeUpdate();
 
-            for (short i = 0; i < newMethod.getImageDataUris().size(); i++)
+            if (!newMethod.getImageDataUris().isEmpty())
             {
-                MobidicsFile newImageFile = new MobidicsFile();
-                newImageFile.setMethodId(newUuid);
-                newImageFile.setDisplayOrder(i);
-                newImageFile.setFilename(FilenameUtils.generateFilename(folder, newMethod.getTitle(), i));
-                newImageFile.setDateModified(new Date());
-                session.save(newImageFile);
+                for (short i = 0; i < newMethod.getImageDataUris().size(); i++)
+                {
+                    MobidicsFile newImageFile = new MobidicsFile();
+                    newImageFile.setMethodId(newUuid);
+                    newImageFile.setDisplayOrder(i);
+                    newImageFile.setFilename(FilenameUtils.generateFilename(folder, newMethod.getTitle(), i));
+                    newImageFile.setDateModified(new Date());
+                    session.save(newImageFile);
+                }
+                uploadImagesToServer(folder,
+                                     newMethod.getTitle(),
+                                     newMethod.getUploadedThumbnailDataUri(),
+                                     newMethod.getImageDataUris());
             }
-            uploadImagesToServer(folder,
-                                 newMethod.getTitle(),
-                                 newMethod.getUploadedThumbnailDataUri(),
-                                 newMethod.getImageDataUris());
             tx.commit();
         }
         catch (Exception e)
@@ -153,13 +155,45 @@ public class MethodDAO
         boolean transactionSuccessful = true;
         try
         {
-
+            String folder = null;
+            MobiDicsMethod methodGerman = session.get(MethodGerman.class, id);
+            MobiDicsMethod methodEnglish = session.get(MethodEnglish.class, id);
+            MobiDicsMethod methodFrench = session.get(MethodFrench.class, id);
+            MobiDicsMethod methodSpanish = session.get(MethodSpanish.class, id);
+            if (methodGerman != null)
+            {
+                folder = methodGerman.getFolder();
+                session.delete(methodGerman);
+            }
+            if (methodEnglish != null)
+            {
+                folder = methodEnglish.getFolder();
+                session.delete(methodEnglish);
+            }
+            if (methodFrench != null)
+            {
+                folder = methodFrench.getFolder();
+                session.delete(methodFrench);
+            }
+            if (methodSpanish != null)
+            {
+                folder = methodSpanish.getFolder();
+                session.delete(methodSpanish);
+            }
+            if (folder != null)
+            {
+                MobidicsFTPDAO ftpDAO = new MobidicsFTPDAO();
+                ftpDAO.deleteImages(folder);
+            }
             tx.commit();
         }
         catch (Exception e)
         {
+            e.printStackTrace();
+            transactionSuccessful = false;
             tx.rollback();
         }
+        session.close();
         return transactionSuccessful;
     }
 }

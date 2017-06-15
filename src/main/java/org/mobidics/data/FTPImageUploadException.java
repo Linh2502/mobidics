@@ -8,6 +8,6 @@ public class FTPImageUploadException extends Exception
 {
     public FTPImageUploadException()
     {
-        super("Error occured while uploading image through FTP!");
+        super("Error occured during FTP communication with file server!");
     }
 }

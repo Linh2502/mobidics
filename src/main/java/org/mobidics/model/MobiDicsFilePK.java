@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Created by Long Bui on 26.04.17.
  * E-Mail: longbui1992@gmail.com
  */
-public class FilesEntityPK implements Serializable
+public class MobiDicsFilePK implements Serializable
 {
     private String methodId;
     private String filename;
@@ -49,7 +49,7 @@ public class FilesEntityPK implements Serializable
             return false;
         }
 
-        FilesEntityPK that = (FilesEntityPK) o;
+        MobiDicsFilePK that = (MobiDicsFilePK) o;
 
         if (methodId != null ? !methodId.equals(that.methodId) : that.methodId != null)
         {

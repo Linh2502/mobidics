@@ -1,15 +1,15 @@
 package org.mobidics.model;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
 
 /**
  * Created by Long Bui on 26.04.17.
  * E-Mail: longbui1992@gmail.com
  */
-@Entity @Table(name = "files", schema = "mobidics", catalog = "")
-@IdClass(FilesEntityPK.class)
+@Entity
+@Table(name = "files", schema = "mobidics", catalog = "")
+@IdClass(MobiDicsFilePK.class)
 public class MobidicsFile
 {
     private String methodId;

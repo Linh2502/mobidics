@@ -1,10 +1,10 @@
 package org.mobidics.api.resource;
 
+import com.owlike.genson.Genson;
 import org.mobidics.api.filter.auth.Roles;
 import org.mobidics.api.viewmodel.MethodReducedViewModel;
 import org.mobidics.api.viewmodel.MethodViewModel;
 import org.mobidics.data.MethodDAO;
-import org.mobidics.data.MobidicsFTPDAO;
 import org.mobidics.model.MethodGerman;
 import org.mobidics.model.MobiDicsMethod;
 
@@ -44,7 +44,7 @@ public class MethodResource
         {
             methods.add(new MethodReducedViewModel(methodRaw));
         }
-        return Response.ok(methods).build();
+        return Response.ok(new Genson().serialize(methods)).build();
     }
 
     @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
@@ -59,7 +59,7 @@ public class MethodResource
         {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.ok(new MethodViewModel(result)).build();
+        return Response.ok(new Genson().serialize(new MethodViewModel(result))).build();
     }
 
     @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
@@ -91,6 +91,6 @@ public class MethodResource
     {
         MethodDAO methodDAO = new MethodDAO();
         boolean deleted = methodDAO.deleteMethodById(id);
-        return Response.ok().build();
+        return Response.ok(deleted).build();
     }
 }
