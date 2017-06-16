@@ -1,6 +1,7 @@
 package org.mobidics.api.resource;
 
 import com.owlike.genson.Genson;
+import org.mobidics.api.MobiDics;
 import org.mobidics.api.filter.auth.Roles;
 import org.mobidics.api.viewmodel.MethodReducedViewModel;
 import org.mobidics.api.viewmodel.MethodViewModel;
@@ -38,9 +39,9 @@ public class MethodResource
     public Response getAllMethods(@QueryParam("name") @DefaultValue("") String methodName)
     {
         MethodDAO methodDAO = new MethodDAO();
-        List<MethodGerman> methodsRaw = methodDAO.getAllMethodsByName(methodName);
+        List<MobiDicsMethod> methodsRaw = methodDAO.getAllMethodsByName(methodName);
         List<MethodReducedViewModel> methods = new LinkedList<>();
-        for (MethodGerman methodRaw : methodsRaw)
+        for (MobiDicsMethod methodRaw : methodsRaw)
         {
             methods.add(new MethodReducedViewModel(methodRaw));
         }
@@ -65,13 +66,28 @@ public class MethodResource
     @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/favoritesIds")
+    @Path("/favoriteIds")
     public Response getFavoriteIds()
     {
         Set<String> favorites = new MethodDAO()
                 .getFavoriteIdsOfUsername((String) requestContext.getProperty(
                         AUTHENTICATED_USER));
         return Response.ok(favorites).build();
+    }
+
+    @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/favorites")
+    public Response getFavorites()
+    {
+        MethodDAO methodDAO = new MethodDAO();
+        Set<MobiDicsMethod> favorites = methodDAO.getFavoritesOfUsername((String) requestContext.getProperty(
+                AUTHENTICATED_USER));
+        List<MethodReducedViewModel> favoritesReduced = new ArrayList<>();
+        favorites.forEach((MobiDicsMethod method) ->
+                                  favoritesReduced.add(new MethodReducedViewModel(method)));
+        return Response.ok(favoritesReduced).build();
     }
 
     @RolesAllowed({Roles.USER, Roles.ADMIN})

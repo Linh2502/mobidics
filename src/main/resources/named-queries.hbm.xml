@@ -5,7 +5,12 @@
     <!-- MethodGerman -->
     <query name="getAllMethods">from MethodGerman</query>
     <query name="getAllMethodsByName">from MethodGerman where title like concat('%',:name,'%')</query>
-    <!-- Method -->
+    <sql-query name="getFavoritesOfUser">
+        <return alias="method" class="org.mobidics.model.MethodGerman"/>
+        select method.* from methods_de method
+        left join favorites favorite on (method.id=favorite.method_id)
+        where favorite.username = :username
+    </sql-query>
     <sql-query name="getFavoriteIdsOfUser">
         SELECT method_id FROM favorites WHERE username = :username
     </sql-query>

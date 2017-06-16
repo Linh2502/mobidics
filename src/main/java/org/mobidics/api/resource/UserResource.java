@@ -2,6 +2,7 @@ package org.mobidics.api.resource;
 
 
 import org.mobidics.api.filter.auth.Roles;
+import org.mobidics.data.MethodDAO;
 import org.mobidics.data.UserDAO;
 import org.mobidics.model.User;
 
@@ -51,4 +52,6 @@ public class UserResource
                 .getUserByUsername((String) requestContext.getProperty(AUTHENTICATED_USER));
         return Response.ok(authenticatedUser).build();
     }
+
+
 }

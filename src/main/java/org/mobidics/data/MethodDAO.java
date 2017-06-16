@@ -19,10 +19,10 @@ public class MethodDAO
     {
     }
 
-    public List<MethodGerman> getAllMethodsByName(String methodName)
+    public List<MobiDicsMethod> getAllMethodsByName(String methodName)
     {
         Session session = SessionUtil.getSession();
-        List<MethodGerman> result = null;
+        List<MobiDicsMethod> result;
         Query query;
         if (methodName.isEmpty())
         {
@@ -38,10 +38,10 @@ public class MethodDAO
         return result;
     }
 
-    public MethodGerman getMethodById(String id)
+    public MobiDicsMethod getMethodById(String id)
     {
         Session session = SessionUtil.getSession();
-        MethodGerman result = session.get(MethodGerman.class, id);
+        MobiDicsMethod result = session.get(MethodGerman.class, id);
         session.close();
         return result;
     }
@@ -51,6 +51,17 @@ public class MethodDAO
         Set<String> result;
         Session session = SessionUtil.getSession();
         Query namedQuery = session.getNamedNativeQuery("getFavoriteIdsOfUser");
+        namedQuery.setParameter("username", username);
+        result = new HashSet<>(namedQuery.list());
+        session.close();
+        return result;
+    }
+
+    public Set<MobiDicsMethod> getFavoritesOfUsername(String username)
+    {
+        Set<MobiDicsMethod> result;
+        Session session = SessionUtil.getSession();
+        Query namedQuery = session.getNamedNativeQuery("getFavoritesOfUser");
         namedQuery.setParameter("username", username);
         result = new HashSet<>(namedQuery.list());
         session.close();

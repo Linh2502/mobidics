@@ -31,7 +31,6 @@ public class Favorites
         this.username = username;
     }
 
-
     public String getMethodId()
     {
         return methodId;
