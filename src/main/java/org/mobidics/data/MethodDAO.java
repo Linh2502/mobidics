@@ -57,13 +57,13 @@ public class MethodDAO
         return result;
     }
 
-    public Set<MobiDicsMethod> getFavoritesOfUsername(String username)
+    public List<MobiDicsMethod> getFavoritesOfUsername(String username)
     {
-        Set<MobiDicsMethod> result;
+        List<MobiDicsMethod> result;
         Session session = SessionUtil.getSession();
         Query namedQuery = session.getNamedNativeQuery("getFavoritesOfUser");
         namedQuery.setParameter("username", username);
-        result = new HashSet<>(namedQuery.list());
+        result = namedQuery.list();
         session.close();
         return result;
     }
@@ -73,7 +73,6 @@ public class MethodDAO
         boolean transactionSuccessful = true;
         Session session = SessionUtil.getSession();
         Transaction tx = session.beginTransaction();
-        // TODO
         try
         {
             String newUuid = String.valueOf(UUID.randomUUID());

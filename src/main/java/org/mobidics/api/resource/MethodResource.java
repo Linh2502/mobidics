@@ -82,7 +82,7 @@ public class MethodResource
     public Response getFavorites()
     {
         MethodDAO methodDAO = new MethodDAO();
-        Set<MobiDicsMethod> favorites = methodDAO.getFavoritesOfUsername((String) requestContext.getProperty(
+        List<MobiDicsMethod> favorites = methodDAO.getFavoritesOfUsername((String) requestContext.getProperty(
                 AUTHENTICATED_USER));
         List<MethodReducedViewModel> favoritesReduced = new ArrayList<>();
         favorites.forEach((MobiDicsMethod method) ->

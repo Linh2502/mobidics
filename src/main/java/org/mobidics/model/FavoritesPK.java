@@ -1,15 +1,14 @@
 package org.mobidics.model;
 
-import javax.persistence.*;
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import java.io.Serializable;
 
 /**
  * Created by Long Bui on 26.04.17.
  * E-Mail: longbui1992@gmail.com
  */
-@Entity @Table(name = "favorites", schema = "mobidics")
-@IdClass(FavoritesPK.class)
-public class Favorites
+public class FavoritesPK implements Serializable
 {
     @Id
     @Column(name = "username", nullable = false, length = 100)
@@ -17,9 +16,6 @@ public class Favorites
     @Id
     @Column(name = "method_id", nullable = false, length = 36)
     private String methodId;
-    @Column(name = "date_modified", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date dateModified;
 
     public String getUsername()
     {
@@ -41,14 +37,28 @@ public class Favorites
         this.methodId = methodId;
     }
 
-
-    public Date getDateModified()
+    @Override
+    public boolean equals(Object o)
     {
-        return dateModified;
+        if (this == o)
+        {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass())
+        {
+            return false;
+        }
+
+        FavoritesPK that = (FavoritesPK) o;
+
+        return username.equals(that.username) && methodId.equals(that.methodId);
     }
 
-    public void setDateModified(Date dateModified)
+    @Override
+    public int hashCode()
     {
-        this.dateModified = dateModified;
+        int result = username.hashCode();
+        result = 31 * result + methodId.hashCode();
+        return result;
     }
 }

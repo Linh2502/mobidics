@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-configuration>
 <hibernate-configuration>
-    <session-factory>
+    <session-factory name="session-factory">
         <property name="hibernate.c3p0.min_size">5</property>
         <property name="hibernate.c3p0.max_size">20</property>
         <property name="hibernate.c3p0.timeout">120</property>
@@ -20,7 +20,7 @@
         <mapping class="org.mobidics.model.University"/>
         <mapping class="org.mobidics.model.Faculty"/>
         <mapping class="org.mobidics.model.MobidicsFile"/>
-        <!--<mapping class="org.mobidics.model.Favorites"/>-->
+        <mapping class="org.mobidics.model.Favorites"/>
 
         <mapping resource="named-queries.hbm.xml"/>
     </session-factory>
