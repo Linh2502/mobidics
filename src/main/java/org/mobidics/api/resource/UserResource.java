@@ -11,6 +11,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ResourceContext;
 import javax.ws.rs.core.*;
+import java.util.List;
 import java.util.Set;
 
 import static org.mobidics.api.filter.auth.AuthenticationRequestFilter.AUTHENTICATED_USER;
@@ -27,6 +28,15 @@ public class UserResource
 
     @Context
     ContainerRequestContext requestContext;
+
+    @RolesAllowed({Roles.ADMIN})
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllUsers()
+    {
+        List<User> users = new UserDAO().getAllUsers();
+        return Response.ok(users).build();
+    }
 
     @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
     @GET

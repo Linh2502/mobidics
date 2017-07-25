@@ -5,10 +5,7 @@
     <!-- MethodGerman -->
     <query name="getAllMethods">from MethodGerman</query>
     <query name="getAllMethodsByName">from MethodGerman where title like concat('%',:name,'%')</query>
-    <sql-query name="updateLastActionDate">
-        UPDATE users SET timestamp = :timestamp
-        WHERE username = :username
-    </sql-query>
+
     <sql-query name="getFavoritesOfUser">
         <return alias="method" class="org.mobidics.model.MethodGerman"/>
         select method.* from methods_de method
@@ -39,5 +36,10 @@
         VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
     </sql-query>
     <!-- User -->
+    <query name="allUsers">from User</query>
     <query name="authenticate">from User where username = :username and password = :password</query>
+    <sql-query name="updateLastActionDate">
+        UPDATE users SET timestamp = :timestamp
+        WHERE username = :username
+    </sql-query>
 </hibernate-mapping>

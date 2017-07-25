@@ -9,6 +9,7 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +21,16 @@ public class UserDAO
 {
     public UserDAO()
     {
+    }
+
+    public List<User> getAllUsers()
+    {
+        List<User> result = new ArrayList<>();
+        Session session = SessionUtil.getSession();
+        Query query = session.getNamedQuery("allUsers");
+        result = query.list();
+        session.close();
+        return result;
     }
 
     public User getUserByUsername(String username)
