@@ -6,10 +6,9 @@ import org.mobidics.model.User;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
-import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -61,4 +60,12 @@ public class UserDAO
         return result;
     }
 
+    public void updateLastActiveTimestamp(String username)
+    {
+        Session session = SessionUtil.getSession();
+        User userToUpdate = session.get(User.class, username);
+        userToUpdate.setLastActionDate((int) new Date().getTime());
+        session.update(userToUpdate);
+        session.close();
+    }
 }

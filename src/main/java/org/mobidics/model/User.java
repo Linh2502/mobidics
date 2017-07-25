@@ -21,7 +21,7 @@ public class User
     @Column(name = "email", length = 50)
     private String email;
     @Column(name = "timestamp", nullable = false)
-    private int creationDate;
+    private int lastActionDate;
     @Column(name = "approved", nullable = false)
     private boolean approved;
     @Column(name = "isfirstrun", nullable = false)
@@ -97,14 +97,14 @@ public class User
         this.email = email;
     }
 
-    public int getCreationDate()
+    public int getLastActionDate()
     {
-        return creationDate;
+        return lastActionDate;
     }
 
-    public void setCreationDate(int timestamp)
+    public void setLastActionDate(int timestamp)
     {
-        this.creationDate = timestamp;
+        this.lastActionDate = timestamp;
     }
 
     public boolean isApproved()
