@@ -1,6 +1,7 @@
 package org.mobidics.data;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.mobidics.model.User;
 
@@ -48,7 +49,6 @@ public class UserDAO
         }
         Query query = session.getNamedQuery("authenticate");
         String passwordHashString = new BigInteger(1, digestedPassword).toString(16);
-        System.out.println(passwordHashString);
         query.setParameter("username", username);
         query.setParameter("password", passwordHashString);
         List<User> queryResult = query.list();
@@ -63,9 +63,12 @@ public class UserDAO
     public void updateLastActiveTimestamp(String username)
     {
         Session session = SessionUtil.getSession();
-        User userToUpdate = session.get(User.class, username);
-        userToUpdate.setLastActionDate((int) new Date().getTime());
-        session.update(userToUpdate);
+        Transaction tx = session.beginTransaction();
+        Query query = session.getNamedQuery("updateLastActionDate");
+        query.setParameter("timestamp", new Date().getTime() / 1000);
+        query.setParameter("username", username);
+        query.executeUpdate();
+        tx.commit();
         session.close();
     }
 }

@@ -5,6 +5,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import org.mobidics.data.UserDAO;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
@@ -80,6 +81,7 @@ public class AuthenticationRequestFilter implements ContainerRequestFilter
                     }
                     else
                     {
+                        new UserDAO().updateLastActiveTimestamp(username);
                         requestContext.setProperty(AUTHENTICATED_USER,
                                                    username);
                     }
