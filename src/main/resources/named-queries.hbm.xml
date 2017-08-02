@@ -6,6 +6,11 @@
     <query name="getAllMethods">from MethodGerman</query>
     <query name="getAllMethodsByName">from MethodGerman where title like concat('%',:name,'%')</query>
 
+    <sql-query name="insertFavoriteId">
+        INSERT INTO
+        favorites(username,method_id)
+        VALUES(?,?)
+    </sql-query>
     <sql-query name="getFavoritesOfUser">
         <return alias="method" class="org.mobidics.model.MethodGerman"/>
         select method.* from methods_de method

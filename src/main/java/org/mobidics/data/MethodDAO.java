@@ -68,6 +68,50 @@ public class MethodDAO
         return result;
     }
 
+    public boolean addFavorite(String username, String newFavoriteId)
+    {
+        boolean transactionSuccessful = true;
+        Session session = SessionUtil.getSession();
+        Query namedQuery = session.getNamedNativeQuery("insertFavoriteId");
+        Transaction tx = session.beginTransaction();
+        try
+        {
+            namedQuery.setParameter(0, username);
+            namedQuery.setParameter(1, newFavoriteId);
+            namedQuery.executeUpdate();
+            tx.commit();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            tx.rollback();
+            transactionSuccessful = false;
+        }
+        session.close();
+        return transactionSuccessful;
+    }
+
+    public boolean deleteFavorite(String username, String favoriteId)
+    {
+        Session session = SessionUtil.getSession();
+        Transaction tx = session.beginTransaction();
+        boolean transactionSuccessful = true;
+        try
+        {
+            Favorites favoriteToDelete = session.get(Favorites.class, new FavoritesPK(username, favoriteId));
+            session.delete(favoriteToDelete);
+            tx.commit();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            transactionSuccessful = false;
+            tx.rollback();
+        }
+        session.close();
+        return transactionSuccessful;
+    }
+
     public boolean addMethod(MethodViewModel newMethod)
     {
         boolean transactionSuccessful = true;

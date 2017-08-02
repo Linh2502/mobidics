@@ -90,6 +90,26 @@ public class MethodResource
         return Response.ok(favoritesReduced).build();
     }
 
+    @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
+    @PUT
+    @Path("/favorites/{id}")
+    public Response addFavorite(@PathParam("id") String id)
+    {
+        MethodDAO methodDAO = new MethodDAO();
+        boolean added = methodDAO.addFavorite((String) requestContext.getProperty(AUTHENTICATED_USER), id);
+        return Response.ok(added).build();
+    }
+
+    @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
+    @DELETE
+    @Path("/favorites/{id}")
+    public Response deleteFavorite(@PathParam("id") String id)
+    {
+        MethodDAO methodDAO = new MethodDAO();
+        boolean removed = methodDAO.deleteFavorite((String) requestContext.getProperty(AUTHENTICATED_USER), id);
+        return Response.ok(removed).build();
+    }
+
     @RolesAllowed({Roles.USER, Roles.ADMIN})
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -102,7 +122,7 @@ public class MethodResource
 
     @RolesAllowed({Roles.ADMIN})
     @DELETE
-    @Path("{id}")
+    @Path("/{id}")
     public Response deleteMethod(@PathParam("id") String id)
     {
         MethodDAO methodDAO = new MethodDAO();
