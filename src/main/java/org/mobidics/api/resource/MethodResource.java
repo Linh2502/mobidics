@@ -6,6 +6,7 @@ import org.mobidics.api.filter.auth.Roles;
 import org.mobidics.api.viewmodel.MethodReducedViewModel;
 import org.mobidics.api.viewmodel.MethodViewModel;
 import org.mobidics.data.MethodDAO;
+import org.mobidics.model.CommentsEntity;
 import org.mobidics.model.MethodGerman;
 import org.mobidics.model.MobiDicsMethod;
 
@@ -128,5 +129,30 @@ public class MethodResource
         MethodDAO methodDAO = new MethodDAO();
         boolean deleted = methodDAO.deleteMethodById(id);
         return Response.ok(deleted).build();
+    }
+
+    @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
+    @GET
+    @Path("/{id}/comments")
+    public Response getMethodComments(@PathParam("id") String id)
+    {
+        return Response.ok(new ArrayList<>()).build();
+    }
+
+    @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
+    @POST
+    @Path("/{id}/comments")
+    public Response addMethodComment(@PathParam("id") String id, CommentsEntity postedComment)
+    {
+        return Response.ok(false).build();
+    }
+
+    @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
+    @DELETE
+    @Path("/{methodId}/comments/{commentId}")
+    public Response deleteMethodComment(@PathParam("methodId") String methodId,
+                                        @PathParam("commentId") String commentId)
+    {
+        return Response.ok(true).build();
     }
 }
