@@ -8,7 +8,7 @@ import java.sql.Timestamp;
  * E-Mail: longbui1992@gmail.com
  */
 @Entity @Table(name = "comments", schema = "mobidics", catalog = "")
-public class CommentsEntity
+public class Comment
 {
     private String id;
     private String methodId;
@@ -166,7 +166,7 @@ public class CommentsEntity
             return false;
         }
 
-        CommentsEntity that = (CommentsEntity) o;
+        Comment that = (Comment) o;
 
         if (thumbsup != that.thumbsup)
         {

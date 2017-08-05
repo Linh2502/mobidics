@@ -21,6 +21,8 @@
         <mapping class="org.mobidics.model.Faculty"/>
         <mapping class="org.mobidics.model.MobidicsFile"/>
         <mapping class="org.mobidics.model.Favorites"/>
+        <mapping class="org.mobidics.model.Comment"/>
+        <mapping class="org.mobidics.model.CommentVote"/>
 
         <mapping resource="named-queries.hbm.xml"/>
     </session-factory>

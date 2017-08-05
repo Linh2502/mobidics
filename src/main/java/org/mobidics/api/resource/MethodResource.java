@@ -1,13 +1,12 @@
 package org.mobidics.api.resource;
 
 import com.owlike.genson.Genson;
-import org.mobidics.api.MobiDics;
 import org.mobidics.api.filter.auth.Roles;
 import org.mobidics.api.viewmodel.MethodReducedViewModel;
 import org.mobidics.api.viewmodel.MethodViewModel;
+import org.mobidics.data.CommentDAO;
 import org.mobidics.data.MethodDAO;
-import org.mobidics.model.CommentsEntity;
-import org.mobidics.model.MethodGerman;
+import org.mobidics.model.Comment;
 import org.mobidics.model.MobiDicsMethod;
 
 import javax.annotation.security.RolesAllowed;
@@ -136,15 +135,21 @@ public class MethodResource
     @Path("/{id}/comments")
     public Response getMethodComments(@PathParam("id") String id)
     {
-        return Response.ok(new ArrayList<>()).build();
+        CommentDAO commentDAO = new CommentDAO();
+        List<Comment> result = commentDAO.getComments(id);
+        return Response.ok(result).build();
     }
 
     @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
     @POST
     @Path("/{id}/comments")
-    public Response addMethodComment(@PathParam("id") String id, CommentsEntity postedComment)
+    public Response addMethodComment(@PathParam("id") String id, Comment postedComment)
     {
-        return Response.ok(false).build();
+        CommentDAO commentDAO = new CommentDAO();
+        boolean result = commentDAO.addComment(id,
+                                               (String) requestContext.getProperty(AUTHENTICATED_USER),
+                                               postedComment);
+        return Response.ok(result).build();
     }
 
     @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
@@ -153,6 +158,8 @@ public class MethodResource
     public Response deleteMethodComment(@PathParam("methodId") String methodId,
                                         @PathParam("commentId") String commentId)
     {
-        return Response.ok(true).build();
+        CommentDAO commentDAO = new CommentDAO();
+        boolean result = commentDAO.deleteComment(commentId);
+        return Response.ok(result).build();
     }
 }

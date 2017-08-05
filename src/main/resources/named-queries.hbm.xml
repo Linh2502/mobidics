@@ -5,7 +5,14 @@
     <!-- MethodGerman -->
     <query name="getAllMethods">from MethodGerman</query>
     <query name="getAllMethodsByName">from MethodGerman where title like concat('%',:name,'%')</query>
-
+    <query name="getCommentsOfMethod">
+        from Comment where method_id = :method_id
+    </query>
+    <sql-query name="insertComment">
+        INSERT INTO
+        comments(id,method_id,timestamp,username,text,in_response_to,root_comment_id,thumbsup,thumbsdown,thumbstotal)
+        VALUES(:id,:methodId,:timestamp,:username,:text,:inResponseTo,:rootComment,0,0,0)
+    </sql-query>
     <sql-query name="insertFavoriteId">
         INSERT INTO
         favorites(username,method_id)

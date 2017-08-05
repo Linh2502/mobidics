@@ -8,8 +8,8 @@ import java.sql.Timestamp;
  * E-Mail: longbui1992@gmail.com
  */
 @Entity @Table(name = "commentvotes", schema = "mobidics", catalog = "")
-@IdClass(CommentvotesEntityPK.class)
-public class CommentvotesEntity
+@IdClass(CommentVotePK.class)
+public class CommentVote
 {
     private String username;
     private String commentId;
@@ -89,7 +89,7 @@ public class CommentvotesEntity
             return false;
         }
 
-        CommentvotesEntity that = (CommentvotesEntity) o;
+        CommentVote that = (CommentVote) o;
 
         if (value != that.value)
         {

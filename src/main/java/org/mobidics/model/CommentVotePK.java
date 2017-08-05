@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Created by Long Bui on 26.04.17.
  * E-Mail: longbui1992@gmail.com
  */
-public class CommentvotesEntityPK implements Serializable
+public class CommentVotePK implements Serializable
 {
     private String username;
     private String commentId;
@@ -49,7 +49,7 @@ public class CommentvotesEntityPK implements Serializable
             return false;
         }
 
-        CommentvotesEntityPK that = (CommentvotesEntityPK) o;
+        CommentVotePK that = (CommentVotePK) o;
 
         if (username != null ? !username.equals(that.username) : that.username != null)
         {
