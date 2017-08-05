@@ -1,7 +1,7 @@
 package org.mobidics.model;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by Long Bui on 26.04.17.
@@ -12,15 +12,15 @@ public class Comment
 {
     private String id;
     private String methodId;
-    private Timestamp timestamp;
+    private Date creationDate;
     private String username;
     private String text;
     private String inResponseTo;
     private String rootCommentId;
-    private int thumbsup;
-    private int thumbsdown;
-    private int thumbstotal;
-    private Timestamp dateModified;
+    private int thumbsUp;
+    private int thumbsDown;
+    private int thumbsTotal;
+    private Date dateModified;
 
     @Id
     @Column(name = "id", nullable = false, length = 36)
@@ -48,14 +48,15 @@ public class Comment
 
     @Basic
     @Column(name = "timestamp", nullable = true)
-    public Timestamp getTimestamp()
+    @Temporal(TemporalType.DATE)
+    public Date getCreationDate()
     {
-        return timestamp;
+        return creationDate;
     }
 
-    public void setTimestamp(Timestamp timestamp)
+    public void setCreationDate(Date creationDate)
     {
-        this.timestamp = timestamp;
+        this.creationDate = creationDate;
     }
 
     @Basic
@@ -108,48 +109,49 @@ public class Comment
 
     @Basic
     @Column(name = "thumbsup", nullable = false)
-    public int getThumbsup()
+    public int getThumbsUp()
     {
-        return thumbsup;
+        return thumbsUp;
     }
 
-    public void setThumbsup(int thumbsup)
+    public void setThumbsUp(int thumbsUp)
     {
-        this.thumbsup = thumbsup;
+        this.thumbsUp = thumbsUp;
     }
 
     @Basic
     @Column(name = "thumbsdown", nullable = false)
-    public int getThumbsdown()
+    public int getThumbsDown()
     {
-        return thumbsdown;
+        return thumbsDown;
     }
 
-    public void setThumbsdown(int thumbsdown)
+    public void setThumbsDown(int thumbsDown)
     {
-        this.thumbsdown = thumbsdown;
+        this.thumbsDown = thumbsDown;
     }
 
     @Basic
     @Column(name = "thumbstotal", nullable = false)
-    public int getThumbstotal()
+    public int getThumbsTotal()
     {
-        return thumbstotal;
+        return thumbsTotal;
     }
 
-    public void setThumbstotal(int thumbstotal)
+    public void setThumbsTotal(int thumbsTotal)
     {
-        this.thumbstotal = thumbstotal;
+        this.thumbsTotal = thumbsTotal;
     }
 
     @Basic
     @Column(name = "date_modified", nullable = false)
-    public Timestamp getDateModified()
+    @Temporal(TemporalType.DATE)
+    public Date getDateModified()
     {
         return dateModified;
     }
 
-    public void setDateModified(Timestamp dateModified)
+    public void setDateModified(Date dateModified)
     {
         this.dateModified = dateModified;
     }
@@ -168,15 +170,15 @@ public class Comment
 
         Comment that = (Comment) o;
 
-        if (thumbsup != that.thumbsup)
+        if (thumbsUp != that.thumbsUp)
         {
             return false;
         }
-        if (thumbsdown != that.thumbsdown)
+        if (thumbsDown != that.thumbsDown)
         {
             return false;
         }
-        if (thumbstotal != that.thumbstotal)
+        if (thumbsTotal != that.thumbsTotal)
         {
             return false;
         }
@@ -188,7 +190,7 @@ public class Comment
         {
             return false;
         }
-        if (timestamp != null ? !timestamp.equals(that.timestamp) : that.timestamp != null)
+        if (creationDate != null ? !creationDate.equals(that.creationDate) : that.creationDate != null)
         {
             return false;
         }
@@ -221,14 +223,14 @@ public class Comment
     {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (methodId != null ? methodId.hashCode() : 0);
-        result = 31 * result + (timestamp != null ? timestamp.hashCode() : 0);
+        result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
         result = 31 * result + (username != null ? username.hashCode() : 0);
         result = 31 * result + (text != null ? text.hashCode() : 0);
         result = 31 * result + (inResponseTo != null ? inResponseTo.hashCode() : 0);
         result = 31 * result + (rootCommentId != null ? rootCommentId.hashCode() : 0);
-        result = 31 * result + thumbsup;
-        result = 31 * result + thumbsdown;
-        result = 31 * result + thumbstotal;
+        result = 31 * result + thumbsUp;
+        result = 31 * result + thumbsDown;
+        result = 31 * result + thumbsTotal;
         result = 31 * result + (dateModified != null ? dateModified.hashCode() : 0);
         return result;
     }
