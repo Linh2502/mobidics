@@ -18,7 +18,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.util.*;
 
-import static org.mobidics.api.filter.auth.AuthenticationRequestFilter.AUTHENTICATED_USER;
+import static org.mobidics.api.filter.auth.AuthenticationRequestFilter.USERLEVEL;
+import static org.mobidics.api.filter.auth.AuthenticationRequestFilter.USERNAME;
 
 /**
  * Created by Long Bui on 28.02.17.
@@ -71,7 +72,7 @@ public class MethodResource
     {
         Set<String> favorites = new MethodDAO()
                 .getFavoriteIdsOfUsername((String) requestContext.getProperty(
-                        AUTHENTICATED_USER));
+                        USERNAME));
         return Response.ok(favorites).build();
     }
 
@@ -83,7 +84,7 @@ public class MethodResource
     {
         MethodDAO methodDAO = new MethodDAO();
         List<MobiDicsMethod> favorites = methodDAO.getFavoritesOfUsername((String) requestContext.getProperty(
-                AUTHENTICATED_USER));
+                USERNAME));
         List<MethodReducedViewModel> favoritesReduced = new ArrayList<>();
         favorites.forEach((MobiDicsMethod method) ->
                                   favoritesReduced.add(new MethodReducedViewModel(method)));
@@ -96,7 +97,7 @@ public class MethodResource
     public Response addFavorite(@PathParam("id") String id)
     {
         MethodDAO methodDAO = new MethodDAO();
-        boolean added = methodDAO.addFavorite((String) requestContext.getProperty(AUTHENTICATED_USER), id);
+        boolean added = methodDAO.addFavorite((String) requestContext.getProperty(USERNAME), id);
         return Response.ok(added).build();
     }
 
@@ -106,7 +107,7 @@ public class MethodResource
     public Response deleteFavorite(@PathParam("id") String id)
     {
         MethodDAO methodDAO = new MethodDAO();
-        boolean removed = methodDAO.deleteFavorite((String) requestContext.getProperty(AUTHENTICATED_USER), id);
+        boolean removed = methodDAO.deleteFavorite((String) requestContext.getProperty(USERNAME), id);
         return Response.ok(removed).build();
     }
 
@@ -136,7 +137,7 @@ public class MethodResource
     public Response getMethodComments(@PathParam("id") String id)
     {
         CommentDAO commentDAO = new CommentDAO();
-        List<Comment> result = commentDAO.getComments(id);
+        List<Comment> result = commentDAO.getCommentsOfMethodWithId(id);
         return Response.ok(result).build();
     }
 
@@ -147,7 +148,7 @@ public class MethodResource
     {
         CommentDAO commentDAO = new CommentDAO();
         boolean result = commentDAO.addComment(id,
-                                               (String) requestContext.getProperty(AUTHENTICATED_USER),
+                                               (String) requestContext.getProperty(USERNAME),
                                                postedComment);
         return Response.ok(result).build();
     }
@@ -159,7 +160,17 @@ public class MethodResource
                                         @PathParam("commentId") String commentId)
     {
         CommentDAO commentDAO = new CommentDAO();
-        boolean result = commentDAO.deleteComment(commentId);
-        return Response.ok(result).build();
+        Comment comment = commentDAO.getCommentById(commentId);
+        if (requestContext.getProperty(USERLEVEL).equals(Roles.ADMIN) || requestContext.getProperty(USERNAME)
+                                                                                       .equals(comment.getUsername()))
+        {
+            boolean result = commentDAO.deleteComment(commentId);
+            return Response.ok(result).build();
+
+        }
+        else
+        {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
     }
 }

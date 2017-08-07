@@ -2,19 +2,16 @@ package org.mobidics.api.resource;
 
 
 import org.mobidics.api.filter.auth.Roles;
-import org.mobidics.data.MethodDAO;
 import org.mobidics.data.UserDAO;
 import org.mobidics.model.User;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.container.ResourceContext;
 import javax.ws.rs.core.*;
 import java.util.List;
-import java.util.Set;
 
-import static org.mobidics.api.filter.auth.AuthenticationRequestFilter.AUTHENTICATED_USER;
+import static org.mobidics.api.filter.auth.AuthenticationRequestFilter.USERNAME;
 
 /**
  * Created by Long Bui on 24.02.17.
@@ -59,7 +56,7 @@ public class UserResource
     public Response getPersonalProfile()
     {
         User authenticatedUser = new UserDAO()
-                .getUserByUsername((String) requestContext.getProperty(AUTHENTICATED_USER));
+                .getUserByUsername((String) requestContext.getProperty(USERNAME));
         return Response.ok(authenticatedUser).build();
     }
 

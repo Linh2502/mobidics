@@ -9,7 +9,6 @@ import org.mobidics.data.UserDAO;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
-import javax.ws.rs.GET;
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
@@ -34,7 +33,8 @@ public class AuthenticationRequestFilter implements ContainerRequestFilter
     @Context
     private ResourceInfo resourceInfo;
 
-    public static final String AUTHENTICATED_USER = "authenticatedUser";
+    public static final String USERNAME = "authenticatedUser";
+    public static final String USERLEVEL = "userLevel";
 
     private static JWTVerifier JWT_VERIFIER = JWT.require(AUTH_ALGORITHM)
                                                  .withIssuer(ISSUER)
@@ -82,8 +82,10 @@ public class AuthenticationRequestFilter implements ContainerRequestFilter
                     else
                     {
                         new UserDAO().updateLastActiveTimestamp(username);
-                        requestContext.setProperty(AUTHENTICATED_USER,
+                        requestContext.setProperty(USERNAME,
                                                    username);
+                        requestContext.setProperty(USERLEVEL,
+                                                   userRole);
                     }
                 }
             }
