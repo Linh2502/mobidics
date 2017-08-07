@@ -239,6 +239,9 @@ public class MethodDAO
                 MobidicsFTPDAO ftpDAO = new MobidicsFTPDAO();
                 ftpDAO.deleteImages(folder);
             }
+            Query query = session.getNamedNativeQuery("cleanUpComments");
+            query.setParameter("method_id", id);
+            query.executeUpdate();
             tx.commit();
         }
         catch (Exception e)

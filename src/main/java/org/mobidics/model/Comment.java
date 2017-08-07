@@ -47,8 +47,8 @@ public class Comment
     }
 
     @Basic
-    @Column(name = "timestamp", nullable = true)
-    @Temporal(TemporalType.DATE)
+    @Column(name = "timestamp")
+    @Temporal(TemporalType.TIMESTAMP)
     public Date getCreationDate()
     {
         return creationDate;
@@ -145,7 +145,7 @@ public class Comment
 
     @Basic
     @Column(name = "date_modified", nullable = false)
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     public Date getDateModified()
     {
         return dateModified;

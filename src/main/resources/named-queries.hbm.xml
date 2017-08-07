@@ -47,6 +47,10 @@
         methods_es(id,language,title,alternative_titles,socialform,phase,subphase,result,grouptype,coursetype,participants_min,participants_max,participants_comment,seating,time_min,time_max,time_comment,rating,ourrating,proceeding,phaseproceeding,variation,examples,tips,visualization,folder,haspictures,scope,hyperlinks,citations,vendor_id,date_created)
         VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
     </sql-query>
+    <sql-query name="cleanUpComments">
+        DELETE FROM comments
+        WHERE method_id = :method_id
+    </sql-query>
     <!-- User -->
     <query name="allUsers">from User</query>
     <query name="authenticate">from User where username = :username and password = :password</query>
