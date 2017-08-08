@@ -8,10 +8,20 @@ import java.io.Serializable;
  * Created by Long Bui on 26.04.17.
  * E-Mail: longbui1992@gmail.com
  */
-public class RatingsEntityPK implements Serializable
+public class RatingPK implements Serializable
 {
     private String methodId;
     private String username;
+
+    public RatingPK()
+    {
+    }
+
+    public RatingPK(String methodId, String username)
+    {
+        this.methodId = methodId;
+        this.username = username;
+    }
 
     @Column(name = "method_id", nullable = false, length = 36)
     @Id
@@ -49,7 +59,7 @@ public class RatingsEntityPK implements Serializable
             return false;
         }
 
-        RatingsEntityPK that = (RatingsEntityPK) o;
+        RatingPK that = (RatingPK) o;
 
         if (methodId != null ? !methodId.equals(that.methodId) : that.methodId != null)
         {

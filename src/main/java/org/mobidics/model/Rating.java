@@ -1,20 +1,33 @@
 package org.mobidics.model;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by Long Bui on 26.04.17.
  * E-Mail: longbui1992@gmail.com
  */
 @Entity @Table(name = "ratings", schema = "mobidics", catalog = "")
-@IdClass(RatingsEntityPK.class) public class RatingsEntity
+@IdClass(RatingPK.class) public class Rating
 {
     private String methodId;
     private String username;
     private int rating;
-    private Timestamp timestamp;
-    private Timestamp dateModified;
+    private Date timestamp;
+    private Date dateModified;
+
+    public Rating()
+    {
+    }
+
+    public Rating(String methodId, String username, int rating, Date timestamp, Date dateModified)
+    {
+        this.methodId = methodId;
+        this.username = username;
+        this.rating = rating;
+        this.timestamp = timestamp;
+        this.dateModified = dateModified;
+    }
 
     @Id
     @Column(name = "method_id", nullable = false, length = 36)
@@ -54,24 +67,26 @@ import java.sql.Timestamp;
 
     @Basic
     @Column(name = "timestamp", nullable = false)
-    public Timestamp getTimestamp()
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getTimestamp()
     {
         return timestamp;
     }
 
-    public void setTimestamp(Timestamp timestamp)
+    public void setTimestamp(Date timestamp)
     {
         this.timestamp = timestamp;
     }
 
     @Basic
     @Column(name = "date_modified", nullable = false)
-    public Timestamp getDateModified()
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getDateModified()
     {
         return dateModified;
     }
 
-    public void setDateModified(Timestamp dateModified)
+    public void setDateModified(Date dateModified)
     {
         this.dateModified = dateModified;
     }
@@ -88,7 +103,7 @@ import java.sql.Timestamp;
             return false;
         }
 
-        RatingsEntity that = (RatingsEntity) o;
+        Rating that = (Rating) o;
 
         if (rating != that.rating)
         {

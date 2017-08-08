@@ -3,14 +3,12 @@ package org.mobidics.data;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
-import org.mobidics.api.viewmodel.MethodViewModel;
-import org.mobidics.data.util.FilenameUtils;
+import org.mobidics.data.exceptions.FTPImageUploadException;
 
 import javax.imageio.ImageIO;
 import javax.xml.bind.DatatypeConverter;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.List;
 
 /**
  * Created by Long on 10.06.2017.

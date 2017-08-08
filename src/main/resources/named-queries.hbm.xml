@@ -5,6 +5,8 @@
     <!-- MethodGerman -->
     <query name="getAllMethods">from MethodGerman</query>
     <query name="getAllMethodsByName">from MethodGerman where title like concat('%',:name,'%')</query>
+
+    <!-- Comments -->
     <query name="getCommentsOfMethod">
         from Comment where method_id = :method_id
     </query>
@@ -13,6 +15,12 @@
         comments(id,method_id,timestamp,username,text,in_response_to,root_comment_id,thumbsup,thumbsdown,thumbstotal)
         VALUES(:id,:methodId,:timestamp,:username,:text,:inResponseTo,:rootComment,0,0,0)
     </sql-query>
+    <sql-query name="cleanUpComments">
+        DELETE FROM comments
+        WHERE method_id = :method_id
+    </sql-query>
+
+    <!-- Favorites -->
     <sql-query name="insertFavoriteId">
         INSERT INTO
         favorites(username,method_id)
@@ -27,6 +35,8 @@
     <sql-query name="getFavoriteIdsOfUser">
         SELECT method_id FROM favorites WHERE username = :username
     </sql-query>
+
+    <!-- Methods -->
     <sql-query name="insertMethod_de">
         INSERT INTO
         methods_de(id,language,title,alternative_titles,socialform,phase,subphase,result,grouptype,coursetype,participants_min,participants_max,participants_comment,seating,time_min,time_max,time_comment,rating,ourrating,proceeding,phaseproceeding,variation,examples,tips,visualization,folder,haspictures,scope,hyperlinks,citations,vendor_id,date_created)
@@ -47,10 +57,12 @@
         methods_es(id,language,title,alternative_titles,socialform,phase,subphase,result,grouptype,coursetype,participants_min,participants_max,participants_comment,seating,time_min,time_max,time_comment,rating,ourrating,proceeding,phaseproceeding,variation,examples,tips,visualization,folder,haspictures,scope,hyperlinks,citations,vendor_id,date_created)
         VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
     </sql-query>
-    <sql-query name="cleanUpComments">
-        DELETE FROM comments
-        WHERE method_id = :method_id
+    <sql-query name="updateMethodDeRating">
+        UPDATE methods_de
+        SET userrating = :userrating
+        WHERE id = :methodId
     </sql-query>
+
     <!-- User -->
     <query name="allUsers">from User</query>
     <query name="authenticate">from User where username = :username and password = :password</query>
@@ -58,4 +70,15 @@
         UPDATE users SET timestamp = :timestamp
         WHERE username = :username
     </sql-query>
+
+    <!-- Rating -->
+    <query name="getRatingsOfMethodWithId">
+        from Rating
+        where method_id = :methodId
+    </query>
+    <sql-query name="cleanUpRatings">
+        DELETE FROM ratings
+        WHERE method_id = :method_id
+    </sql-query>
+
 </hibernate-mapping>

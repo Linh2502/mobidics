@@ -6,8 +6,10 @@ import org.mobidics.api.viewmodel.MethodReducedViewModel;
 import org.mobidics.api.viewmodel.MethodViewModel;
 import org.mobidics.data.CommentDAO;
 import org.mobidics.data.MethodDAO;
+import org.mobidics.data.RatingDAO;
 import org.mobidics.model.Comment;
 import org.mobidics.model.MobiDicsMethod;
+import org.mobidics.model.Rating;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
@@ -172,5 +174,39 @@ public class MethodResource
         {
             return Response.status(Response.Status.UNAUTHORIZED).build();
         }
+    }
+
+    @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
+    @PUT
+    @Path("/{methodId}/rating/{rating}")
+    public Response rateMethod(@PathParam("methodId") String methodId,
+                               @PathParam("rating") int rating)
+    {
+        RatingDAO ratingDAO = new RatingDAO();
+        String username = (String) requestContext.getProperty(USERNAME);
+        boolean success = ratingDAO.updateRatingOfUserOnMethodWithId(username, methodId, rating);
+        if (success)
+        {
+            return Response.ok().build();
+        }
+        else
+        {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
+    @GET
+    @Path("/{methodId}/rating/")
+    public Response getPersonalRating(@PathParam("methodId") String methodId)
+    {
+        RatingDAO ratingDAO = new RatingDAO();
+        String username = (String) requestContext.getProperty(USERNAME);
+        Rating rating = ratingDAO.getRatingOfUserOnMethodWithId(username, methodId);
+        if (rating == null)
+        {
+            rating = new Rating();
+        }
+        return Response.ok(rating).build();
     }
 }

@@ -1,4 +1,4 @@
-package org.mobidics.data;
+package org.mobidics.data.exceptions;
 
 /**
  * Created by Long on 11.06.2017.

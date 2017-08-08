@@ -4,6 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.mobidics.api.viewmodel.MethodViewModel;
+import org.mobidics.data.exceptions.FTPImageUploadException;
 import org.mobidics.data.util.FilenameUtils;
 import org.mobidics.model.*;
 
@@ -240,6 +241,9 @@ public class MethodDAO
                 ftpDAO.deleteImages(folder);
             }
             Query query = session.getNamedNativeQuery("cleanUpComments");
+            query.setParameter("method_id", id);
+            query.executeUpdate();
+            query = session.getNamedNativeQuery("cleanUpRatings");
             query.setParameter("method_id", id);
             query.executeUpdate();
             tx.commit();
