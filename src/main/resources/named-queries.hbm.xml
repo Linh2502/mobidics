@@ -2,10 +2,6 @@
 <!DOCTYPE hibernate-mapping>
 
 <hibernate-mapping>
-    <!-- MethodGerman -->
-    <query name="getAllMethods">from MethodGerman</query>
-    <query name="getAllMethodsByName">from MethodGerman where title like concat('%',:name,'%')</query>
-
     <!-- Comments -->
     <query name="getCommentsOfMethod">
         from Comment where method_id = :method_id

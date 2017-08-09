@@ -8,6 +8,10 @@ import org.mobidics.data.exceptions.FTPImageUploadException;
 import org.mobidics.data.util.FilenameUtils;
 import org.mobidics.model.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.*;
 
 /**
@@ -20,23 +24,172 @@ public class MethodDAO
     {
     }
 
-    public List<MobiDicsMethod> getAllMethodsByName(String methodName)
+    public List<MethodGerman> getMethodsWithFilters(String searchString,
+                                                    List<String> phases,
+                                                    List<String> subphases,
+                                                    List<String> coursetypes,
+                                                    int minGroupSize,
+                                                    int maxGroupSize,
+                                                    int minTime,
+                                                    int maxTime,
+                                                    int minRating,
+                                                    List<String> socialforms)
     {
         Session session = SessionUtil.getSession();
-        List<MobiDicsMethod> result;
-        Query query;
-        if (methodName.isEmpty())
+        List<MethodGerman> result;
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<MethodGerman> criteriaQuery = criteriaBuilder.createQuery(MethodGerman.class);
+        Root<MethodGerman> methodRoot = criteriaQuery.from(MethodGerman.class);
+        List<Predicate> predicates = new ArrayList<>();
+        if (searchString != null)
         {
-            query = session.getNamedQuery("getAllMethods");
+            addSearchStringPredicates(searchString, criteriaBuilder, methodRoot, predicates);
         }
-        else
-        {
-            query = session.getNamedQuery("getAllMethodsByName")
-                           .setParameter("name", methodName);
-        }
-        result = query.list();
+        addFilterPredicates(predicates,
+                            methodRoot,
+                            criteriaBuilder,
+                            phases,
+                            subphases,
+                            coursetypes,
+                            minGroupSize,
+                            maxGroupSize,
+                            minTime,
+                            maxTime,
+                            minRating,
+                            socialforms);
+        criteriaQuery.where(criteriaBuilder.and(predicates.toArray(new Predicate[0])));
+        result = session.createQuery(criteriaQuery).getResultList();
         session.close();
         return result;
+    }
+
+    private void addFilterPredicates(List<Predicate> predicates,
+                                     Root<MethodGerman> methodRoot,
+                                     CriteriaBuilder builder,
+                                     List<String> phases,
+                                     List<String> subphases,
+                                     List<String> coursetypes,
+                                     int minGroupSize, int maxGroupSize,
+                                     int minTime, int maxTime,
+                                     int minRating,
+                                     List<String> socialforms)
+    {
+        if (phases != null)
+        {
+            for (String phase : phases)
+            {
+                predicates.add(builder.like(methodRoot.get("phase"), "%" + phase + "%"));
+            }
+        }
+        if (subphases != null)
+        {
+            for (String subphase : subphases)
+            {
+                predicates.add(builder.like(methodRoot.get("subphase"), "%" + subphase + "%"));
+            }
+        }
+        if (coursetypes != null)
+        {
+            for (String coursetype : coursetypes)
+            {
+                predicates.add(builder.like(methodRoot.get("coursetype"), "%" + coursetype + "%"));
+            }
+        }
+        if (minGroupSize != 0 && maxGroupSize != 0)
+        {
+            predicates.add(builder.between(methodRoot.get("participantsMax"),
+                                           minGroupSize,
+                                           maxGroupSize));
+        }
+        if (minTime != 0 && maxTime != 0)
+        {
+            predicates.add(builder.between(methodRoot.get("timeMax"),
+                                           minTime,
+                                           maxTime));
+        }
+        if (minRating != 0)
+        {
+            predicates.add(builder.ge(methodRoot.get("userrating"), minRating));
+        }
+        if (socialforms != null)
+        {
+            for (String socialform : socialforms)
+            {
+                predicates.add(builder.like(methodRoot.get("socialform"), "%" + socialform + "%"));
+            }
+        }
+    }
+
+    private void addSearchStringPredicates(String searchString, CriteriaBuilder builder, Root<MethodGerman> methodRoot,
+                                           List<Predicate> predicates)
+    {
+        List<Predicate> searchStringPredicates = new ArrayList<>();
+        String searchStringWithWildcards = "%" + searchString + "%";
+        searchStringPredicates.add(builder.like(
+                methodRoot.get("title"),
+                searchStringWithWildcards
+        ));
+        searchStringPredicates.add(builder.like(
+                methodRoot.get("alternativeTitles"),
+                searchStringWithWildcards
+        ));
+        searchStringPredicates.add(builder.like(
+                methodRoot.get("result"),
+                searchStringWithWildcards
+        ));
+        searchStringPredicates.add(builder.like(
+                methodRoot.get("proceeding"),
+                searchStringWithWildcards
+        ));
+        searchStringPredicates.add(builder.like(
+                methodRoot.get("phaseproceeding"),
+                searchStringWithWildcards
+        ));
+        searchStringPredicates.add(builder.like(
+                methodRoot.get("rating"),
+                searchStringWithWildcards
+        ));
+        searchStringPredicates.add(builder.like(
+                methodRoot.get("ourrating"),
+                searchStringWithWildcards
+        ));
+        searchStringPredicates.add(builder.like(
+                methodRoot.get("participantsComment"),
+                searchStringWithWildcards
+        ));
+        searchStringPredicates.add(builder.like(
+                methodRoot.get("seating"),
+                searchStringWithWildcards
+        ));
+        searchStringPredicates.add(builder.like(
+                methodRoot.get("timeComment"),
+                searchStringWithWildcards
+        ));
+        searchStringPredicates.add(builder.like(
+                methodRoot.get("variation"),
+                searchStringWithWildcards
+        ));
+        searchStringPredicates.add(builder.like(
+                methodRoot.get("examples"),
+                searchStringWithWildcards
+        ));
+        searchStringPredicates.add(builder.like(
+                methodRoot.get("tips"),
+                searchStringWithWildcards
+        ));
+        searchStringPredicates.add(builder.like(
+                methodRoot.get("visualization"),
+                searchStringWithWildcards
+        ));
+        searchStringPredicates.add(builder.like(
+                methodRoot.get("author"),
+                searchStringWithWildcards
+        ));
+        searchStringPredicates.add(builder.like(
+                methodRoot.get("citations"),
+                searchStringWithWildcards
+        ));
+        predicates.add(builder.or(searchStringPredicates.toArray(new Predicate[0])));
     }
 
     public MobiDicsMethod getMethodById(String id)

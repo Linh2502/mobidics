@@ -8,6 +8,7 @@ import org.mobidics.data.CommentDAO;
 import org.mobidics.data.MethodDAO;
 import org.mobidics.data.RatingDAO;
 import org.mobidics.model.Comment;
+import org.mobidics.model.MethodGerman;
 import org.mobidics.model.MobiDicsMethod;
 import org.mobidics.model.Rating;
 
@@ -39,12 +40,29 @@ public class MethodResource
     @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllMethods(@QueryParam("name") @DefaultValue("") String methodName)
+    public Response getAllMethods(@QueryParam("search") String searchString,
+                                  @QueryParam("phase") List<String> phases,
+                                  @QueryParam("subphase") List<String> subphases,
+                                  @QueryParam("coursetype") List<String> coursetypes,
+                                  @QueryParam("groupmin") int minGroupSize, @QueryParam("groupmax") int maxGroupSize,
+                                  @QueryParam("mintime") int minTime, @QueryParam("maxtime") int maxTime,
+                                  @QueryParam("minrating") int minRating,
+                                  @QueryParam("socialform") List<String> socialforms)
     {
+        System.out.println(socialforms);
         MethodDAO methodDAO = new MethodDAO();
-        List<MobiDicsMethod> methodsRaw = methodDAO.getAllMethodsByName(methodName);
+        List<MethodGerman> methodsRaw = methodDAO.getMethodsWithFilters(searchString,
+                                                                        phases,
+                                                                        subphases,
+                                                                        coursetypes,
+                                                                        minGroupSize,
+                                                                        maxGroupSize,
+                                                                        minTime,
+                                                                        maxTime,
+                                                                        minRating,
+                                                                        socialforms);
         List<MethodReducedViewModel> methods = new LinkedList<>();
-        for (MobiDicsMethod methodRaw : methodsRaw)
+        for (MethodGerman methodRaw : methodsRaw)
         {
             methods.add(new MethodReducedViewModel(methodRaw));
         }
