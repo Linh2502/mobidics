@@ -7,11 +7,9 @@ import org.mobidics.api.viewmodel.MethodViewModel;
 import org.mobidics.data.CommentDAO;
 import org.mobidics.data.MethodDAO;
 import org.mobidics.data.RatingDAO;
-import org.mobidics.model.Comment;
-import org.mobidics.model.MethodGerman;
-import org.mobidics.model.MobiDicsMethod;
-import org.mobidics.model.Rating;
+import org.mobidics.model.*;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -44,8 +42,9 @@ public class MethodResource
                                   @QueryParam("phase") List<String> phases,
                                   @QueryParam("subphase") List<String> subphases,
                                   @QueryParam("coursetype") List<String> coursetypes,
-                                  @QueryParam("groupmin") int minGroupSize, @QueryParam("groupmax") int maxGroupSize,
-                                  @QueryParam("mintime") int minTime, @QueryParam("maxtime") int maxTime,
+                                  @QueryParam("grouptype") int groupType,
+                                  @QueryParam("groupmax") int maxGroupSize,
+                                  @QueryParam("maxtime") int maxTime,
                                   @QueryParam("minrating") int minRating,
                                   @QueryParam("socialform") List<String> socialforms)
     {
@@ -55,9 +54,8 @@ public class MethodResource
                                                                         phases,
                                                                         subphases,
                                                                         coursetypes,
-                                                                        minGroupSize,
+                                                                        groupType,
                                                                         maxGroupSize,
-                                                                        minTime,
                                                                         maxTime,
                                                                         minRating,
                                                                         socialforms);
@@ -226,5 +224,15 @@ public class MethodResource
             rating = new Rating();
         }
         return Response.ok(rating).build();
+    }
+
+    @PermitAll
+    @GET
+    @Path("/mins-maxes")
+    public Response getMinMaxes()
+    {
+        MethodDAO methodDAO = new MethodDAO();
+        MinMaxSummary minMaxSummary = methodDAO.getMinMaxes();
+        return Response.ok(minMaxSummary).build();
     }
 }

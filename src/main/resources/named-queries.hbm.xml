@@ -33,6 +33,10 @@
     </sql-query>
 
     <!-- Methods -->
+    <query name="minMaxes">
+        select new org.mobidics.model.MinMaxSummary(min(m.grouptype),max(m.grouptype),min(m.timeMax),max(m.timeMax))
+        from MethodGerman m
+    </query>
     <sql-query name="insertMethod_de">
         INSERT INTO
         methods_de(id,language,title,alternative_titles,socialform,phase,subphase,result,grouptype,coursetype,participants_min,participants_max,participants_comment,seating,time_min,time_max,time_comment,rating,ourrating,proceeding,phaseproceeding,variation,examples,tips,visualization,folder,haspictures,scope,hyperlinks,citations,vendor_id,date_created)

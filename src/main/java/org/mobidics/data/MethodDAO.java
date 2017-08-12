@@ -28,9 +28,8 @@ public class MethodDAO
                                                     List<String> phases,
                                                     List<String> subphases,
                                                     List<String> coursetypes,
-                                                    int minGroupSize,
+                                                    int groupType,
                                                     int maxGroupSize,
-                                                    int minTime,
                                                     int maxTime,
                                                     int minRating,
                                                     List<String> socialforms)
@@ -51,9 +50,8 @@ public class MethodDAO
                             phases,
                             subphases,
                             coursetypes,
-                            minGroupSize,
+                            groupType,
                             maxGroupSize,
-                            minTime,
                             maxTime,
                             minRating,
                             socialforms);
@@ -69,8 +67,9 @@ public class MethodDAO
                                      List<String> phases,
                                      List<String> subphases,
                                      List<String> coursetypes,
-                                     int minGroupSize, int maxGroupSize,
-                                     int minTime, int maxTime,
+                                     int groupType,
+                                     int maxGroupSize,
+                                     int maxTime,
                                      int minRating,
                                      List<String> socialforms)
     {
@@ -95,17 +94,17 @@ public class MethodDAO
                 predicates.add(builder.like(methodRoot.get("coursetype"), "%" + coursetype + "%"));
             }
         }
-        if (minGroupSize != 0 && maxGroupSize != 0)
+        if (groupType != 0)
         {
-            predicates.add(builder.between(methodRoot.get("participantsMax"),
-                                           minGroupSize,
-                                           maxGroupSize));
+            predicates.add(builder.equal(methodRoot.get("grouptype"), groupType));
         }
-        if (minTime != 0 && maxTime != 0)
+        if (maxGroupSize != 0)
         {
-            predicates.add(builder.between(methodRoot.get("timeMax"),
-                                           minTime,
-                                           maxTime));
+            predicates.add(builder.le(methodRoot.get("participantsMax"), maxGroupSize));
+        }
+        if (maxTime != 0)
+        {
+            predicates.add(builder.le(methodRoot.get("timeMax"), maxTime));
         }
         if (minRating != 0)
         {
@@ -409,5 +408,14 @@ public class MethodDAO
         }
         session.close();
         return transactionSuccessful;
+    }
+
+    public MinMaxSummary getMinMaxes()
+    {
+        Session session = SessionUtil.getSession();
+        Query query = session.getNamedQuery("minMaxes");
+        MinMaxSummary minMaxSummary = (MinMaxSummary) query.getSingleResult();
+        session.close();
+        return minMaxSummary;
     }
 }
