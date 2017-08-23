@@ -290,6 +290,4 @@ public class User
     {
         this.userstatusOther = userstatusOther;
     }
-
-
 }

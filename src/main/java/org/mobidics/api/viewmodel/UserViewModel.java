@@ -29,7 +29,7 @@ public class UserViewModel
     private Faculty faculty;
     private String department;
     private String experience;
-    private String privateFields;
+    private String[] privateFields;
     private long lastActionDate;
 
     public UserViewModel()
@@ -58,7 +58,7 @@ public class UserViewModel
         this.faculty = user.getFaculty();
         this.department = user.getDepartment();
         this.experience = user.getExperience();
-        this.privateFields = user.getPrivateFields();
+        this.setPrivateFields(user.getPrivateFields());
         this.lastActionDate = user.getLastActionDate();
     }
 
@@ -263,14 +263,14 @@ public class UserViewModel
         this.experience = experience;
     }
 
-    public String getPrivateFields()
+    public String[] getPrivateFields()
     {
         return privateFields;
     }
 
     public void setPrivateFields(String privateFields)
     {
-        this.privateFields = privateFields;
+        this.privateFields = privateFields.split(",");
     }
 
     public long getLastActionDate()

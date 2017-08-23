@@ -57,7 +57,6 @@ public class UserResource
         }
     }
 
-
     @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
     @GET
     @Produces(MediaType.APPLICATION_JSON)

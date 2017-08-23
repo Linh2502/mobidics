@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import org.glassfish.jersey.internal.util.Base64;
+import org.mobidics.api.viewmodel.UserViewModel;
 import org.mobidics.data.UserDAO;
 import org.mobidics.model.User;
 
@@ -83,7 +84,7 @@ public class AuthResource
         {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
-        return Response.ok(user)
+        return Response.ok(new UserViewModel(user))
                        .header(JWT_HEADER, token)
                        .build();
     }
