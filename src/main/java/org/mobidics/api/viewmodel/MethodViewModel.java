@@ -21,12 +21,12 @@ public class MethodViewModel
     private Date dateCreated;
     private String title;
     private String alternativeTitles;
-    private String socialform;
-    private String phase;
-    private String subphase;
+    private int[] socialform;
+    private int[] phase;
+    private int[] subphase;
     private String result;
     private Integer grouptype;
-    private String coursetype;
+    private int[] coursetype;
     private Integer participantsMin;
     private Integer participantsMax;
     private String participantsComment;
@@ -58,6 +58,17 @@ public class MethodViewModel
     {
     }
 
+    private int[] splitString(String string)
+    {
+        String[] splitString = string.split(":");
+        int[] result = new int[splitString.length];
+        for (int i = 0; i < splitString.length; i++)
+        {
+            result[i] = Integer.parseInt(splitString[i]);
+        }
+        return result;
+    }
+
     public MethodViewModel(MobiDicsMethod method)
     {
         this.id = method.getId();
@@ -65,12 +76,12 @@ public class MethodViewModel
         this.dateCreated = method.getDateCreated();
         this.title = method.getTitle();
         this.alternativeTitles = method.getAlternativeTitles();
-        this.socialform = method.getSocialform();
-        this.phase = method.getPhase();
-        this.subphase = method.getSubphase();
+        this.socialform = splitString(method.getSocialform());
+        this.phase = splitString(method.getPhase());
+        this.subphase = splitString(method.getSubphase());
         this.result = method.getResult();
         this.grouptype = method.getGrouptype();
-        this.coursetype = method.getCoursetype();
+        this.coursetype = splitString(method.getCoursetype());
         this.participantsMin = method.getParticipantsMin();
         this.participantsMax = method.getParticipantsMax();
         this.participantsComment = method.getParticipantsComment();
@@ -134,17 +145,17 @@ public class MethodViewModel
         return this.alternativeTitles;
     }
 
-    public String getSocialForm()
+    public int[] getSocialForm()
     {
         return this.socialform;
     }
 
-    public String getPhase()
+    public int[] getPhase()
     {
         return this.phase;
     }
 
-    public String getSubPhase()
+    public int[] getSubPhase()
     {
         return this.subphase;
     }
@@ -154,7 +165,7 @@ public class MethodViewModel
         return this.result;
     }
 
-    public String getCourseType()
+    public int[] getCourseType()
     {
         return this.coursetype;
     }
@@ -281,6 +292,11 @@ public class MethodViewModel
         return this.language;
     }
 
+    public String getAuthor()
+    {
+        return this.author;
+    }
+
     public void setId(String id)
     {
         this.id = id;
@@ -306,17 +322,17 @@ public class MethodViewModel
         this.alternativeTitles = alternativeTitles;
     }
 
-    public void setSocialform(String socialform)
+    public void setSocialform(int[] socialform)
     {
         this.socialform = socialform;
     }
 
-    public void setPhase(String phase)
+    public void setPhase(int[] phase)
     {
         this.phase = phase;
     }
 
-    public void setSubphase(String subphase)
+    public void setSubphase(int[] subphase)
     {
         this.subphase = subphase;
     }
@@ -331,7 +347,7 @@ public class MethodViewModel
         this.grouptype = grouptype;
     }
 
-    public void setCoursetype(String coursetype)
+    public void setCoursetype(int[] coursetype)
     {
         this.coursetype = coursetype;
     }
@@ -460,4 +476,6 @@ public class MethodViewModel
     {
         this.uploadedThumbnailDataUri = thumbnail;
     }
+
+
 }
