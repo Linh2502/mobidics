@@ -35,7 +35,7 @@ public class MethodResource
     @Context
     ContainerRequestContext requestContext;
 
-    @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
+    @PermitAll
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllMethods(@QueryParam("search") String searchString,
@@ -67,7 +67,7 @@ public class MethodResource
         return Response.ok(new Genson().serialize(methods)).build();
     }
 
-    @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
+    @PermitAll
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
@@ -111,6 +111,7 @@ public class MethodResource
 
     @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
     @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
     @Path("/favorites/{id}")
     public Response addFavorite(@PathParam("id") String id)
     {
@@ -139,18 +140,26 @@ public class MethodResource
         return Response.ok(added).build();
     }
 
-    @RolesAllowed({Roles.ADMIN})
+    @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
     @DELETE
     @Path("/{id}")
     public Response deleteMethod(@PathParam("id") String id)
     {
         MethodDAO methodDAO = new MethodDAO();
-        boolean deleted = methodDAO.deleteMethodById(id);
-        return Response.ok(deleted).build();
+        MobiDicsMethod method = methodDAO.getMethodById(id);
+
+        if (requestContext.getProperty(USERLEVEL).equals(Roles.ADMIN) || requestContext.getProperty(USERNAME)
+                                                                                       .equals((method.getAuthor())))
+        {
+            boolean deleted = methodDAO.deleteMethodById(id);
+            return Response.ok(deleted).build();
+        }
+        return Response.status(Response.Status.UNAUTHORIZED).build();
     }
 
     @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}/comments")
     public Response getMethodComments(@PathParam("id") String id)
     {
@@ -161,6 +170,7 @@ public class MethodResource
 
     @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
     @POST
+    @Consumes(MediaType.APPLICATION_JSON)
     @Path("/{id}/comments")
     public Response addMethodComment(@PathParam("id") String id, Comment postedComment)
     {
@@ -194,6 +204,7 @@ public class MethodResource
 
     @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
     @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
     @Path("/{methodId}/rating/{rating}")
     public Response rateMethod(@PathParam("methodId") String methodId,
                                @PathParam("rating") int rating)
@@ -213,6 +224,7 @@ public class MethodResource
 
     @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("/{methodId}/rating/")
     public Response getPersonalRating(@PathParam("methodId") String methodId)
     {
@@ -228,6 +240,7 @@ public class MethodResource
 
     @PermitAll
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("/mins-maxes")
     public Response getMinMaxes()
     {

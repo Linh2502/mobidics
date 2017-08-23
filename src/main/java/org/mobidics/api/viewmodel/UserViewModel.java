@@ -1,65 +1,77 @@
-package org.mobidics.model;
+package org.mobidics.api.viewmodel;
 
-import javax.persistence.*;
+import com.owlike.genson.annotation.JsonIgnore;
+import org.mobidics.model.Faculty;
+import org.mobidics.model.University;
+import org.mobidics.model.User;
+
 import java.util.Date;
 
-/**
- * Created by Long Bui on 26.04.17.
- * E-Mail: longbui1992@gmail.com
- */
-@Entity @Table(name = "users", schema = "mobidics")
-public class User
+public class UserViewModel
 {
-    @Id
-    @Column(name = "username", nullable = false, length = 30)
     private String username;
-    @Column(name = "password", length = 32)
     private String password;
-    @Column(name = "email", length = 50)
     private String email;
-    @Column(name = "timestamp", nullable = false)
-    private int lastActionDate;
-    @Column(name = "approved", nullable = false)
     private boolean approved;
-    @Column(name = "isfirstrun", nullable = false)
     private boolean isFirstRun;
-    @Column(name = "userlevel", nullable = false)
     private Integer userLevel;
-    @Column(name = "language", nullable = false)
     private String language;
-    @Column(name = "profilepicture")
     private String profileImage;
-    @Column(name = "firstname")
     private String firstname;
-    @Column(name = "lastname")
     private String lastname;
-    @Temporal(TemporalType.DATE)
-    @Column(name = "birthday")
     private Date birthday;
-    @Column(name = "gender")
-    private Integer gender;
-    @Column(name = "userstatus")
+    private int gender;
     private Integer userStatus;
-    @Column(name = "userstatus_other")
-    private String userstatusOther;
-    @Column(name = "usertype")
+    private String userStatusOther;
     private Integer userType;
-    @Column(name = "usertype_other")
-    private String usertypeOther;
-    @ManyToOne(targetEntity = University.class)
+    private String userTypeOther;
     private University university;
-    @ManyToOne(targetEntity = Faculty.class)
-    @JoinColumn(name = "faculty_id", referencedColumnName = "nr")
     private Faculty faculty;
-    @Column(name = "department")
     private String department;
-    @Column(name = "experience", length = 3)
     private String experience;
-    @Column(name = "private")
     private String privateFields;
-    @Column(name = "date_modified", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date dateModified;
+    private long lastActionDate;
+
+    public UserViewModel()
+    {
+    }
+
+    public UserViewModel(User user)
+    {
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.email = user.getEmail();
+        this.approved = user.isApproved();
+        this.isFirstRun = user.isIsFirstRun();
+        this.userLevel = user.getUserLevel();
+        this.language = user.getLanguage();
+        this.profileImage = user.getProfileImage();
+        this.firstname = user.getFirstname();
+        this.lastname = user.getLastname();
+        this.birthday = user.getBirthday();
+        this.gender = user.getGender();
+        this.userStatus = user.getUserStatus();
+        this.userStatusOther = user.getUserstatusOther();
+        this.userType = user.getUserType();
+        this.userTypeOther = user.getUsertypeOther();
+        this.university = user.getUniversity();
+        this.faculty = user.getFaculty();
+        this.department = user.getDepartment();
+        this.experience = user.getExperience();
+        this.privateFields = user.getPrivateFields();
+        this.lastActionDate = user.getLastActionDate();
+    }
+
+    @JsonIgnore
+    public String getPassword()
+    {
+        return password;
+    }
+
+    public void setPassword(String password)
+    {
+        this.password = password;
+    }
 
     public String getUsername()
     {
@@ -69,16 +81,6 @@ public class User
     public void setUsername(String username)
     {
         this.username = username;
-    }
-
-    public String getPassword()
-    {
-        return password;
-    }
-
-    public void setPassword(String password)
-    {
-        this.password = password;
     }
 
     public String getEmail()
@@ -91,16 +93,6 @@ public class User
         this.email = email;
     }
 
-    public int getLastActionDate()
-    {
-        return lastActionDate;
-    }
-
-    public void setLastActionDate(int timestamp)
-    {
-        this.lastActionDate = timestamp;
-    }
-
     public boolean isApproved()
     {
         return approved;
@@ -111,14 +103,14 @@ public class User
         this.approved = approved;
     }
 
-    public boolean isIsFirstRun()
+    public boolean isFirstRun()
     {
         return isFirstRun;
     }
 
-    public void setIsFirstRun(boolean isfirstrun)
+    public void setFirstRun(boolean firstRun)
     {
-        this.isFirstRun = isfirstrun;
+        isFirstRun = firstRun;
     }
 
     public Integer getUserLevel()
@@ -126,9 +118,9 @@ public class User
         return userLevel;
     }
 
-    public void setUserLevel(Integer userlevel)
+    public void setUserLevel(Integer userLevel)
     {
-        this.userLevel = userlevel;
+        this.userLevel = userLevel;
     }
 
     public String getLanguage()
@@ -181,12 +173,12 @@ public class User
         this.birthday = birthday;
     }
 
-    public Integer getGender()
+    public int getGender()
     {
         return gender;
     }
 
-    public void setGender(Integer gender)
+    public void setGender(int gender)
     {
         this.gender = gender;
     }
@@ -201,6 +193,16 @@ public class User
         this.userStatus = userStatus;
     }
 
+    public String getUserStatusOther()
+    {
+        return userStatusOther;
+    }
+
+    public void setUserStatusOther(String userStatusOther)
+    {
+        this.userStatusOther = userStatusOther;
+    }
+
     public Integer getUserType()
     {
         return userType;
@@ -211,14 +213,14 @@ public class User
         this.userType = userType;
     }
 
-    public String getUsertypeOther()
+    public String getUserTypeOther()
     {
-        return usertypeOther;
+        return userTypeOther;
     }
 
-    public void setUsertypeOther(String usertypeOther)
+    public void setUserTypeOther(String userTypeOther)
     {
-        this.usertypeOther = usertypeOther;
+        this.userTypeOther = userTypeOther;
     }
 
     public University getUniversity()
@@ -271,25 +273,13 @@ public class User
         this.privateFields = privateFields;
     }
 
-    public Date getDateModified()
+    public long getLastActionDate()
     {
-        return dateModified;
+        return lastActionDate;
     }
 
-    public void setDateModified(Date dateModified)
+    public void setLastActionDate(long lastActionDate)
     {
-        this.dateModified = dateModified;
+        this.lastActionDate = lastActionDate;
     }
-
-    public String getUserstatusOther()
-    {
-        return userstatusOther;
-    }
-
-    public void setUserstatusOther(String userstatusOther)
-    {
-        this.userstatusOther = userstatusOther;
-    }
-
-
 }

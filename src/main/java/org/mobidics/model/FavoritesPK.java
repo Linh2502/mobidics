@@ -17,6 +17,10 @@ public class FavoritesPK implements Serializable
     @Column(name = "method_id", nullable = false, length = 36)
     private String methodId;
 
+    public FavoritesPK()
+    {
+    }
+
     public FavoritesPK(String username, String methodId)
     {
         this.username = username;

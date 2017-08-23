@@ -70,6 +70,11 @@
         UPDATE users SET timestamp = :timestamp
         WHERE username = :username
     </sql-query>
+    <sql-query name="createUser">
+        INSERT INTO
+        users(username,password,email,timestamp,userlevel,language,firstname,lastname,gender,userstatus,userstatus_other,usertype,usertype_other,university_id)
+        VALUES(:username,:password,:email,:timestamp,:userlevel,:language,:firstname,:lastname,:gender,:userstatus,:userstatus_other,:usertype,:usertype_other,:university_id)
+    </sql-query>
 
     <!-- Rating -->
     <query name="getRatingsOfMethodWithId">

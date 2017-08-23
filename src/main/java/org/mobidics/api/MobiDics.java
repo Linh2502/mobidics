@@ -1,9 +1,7 @@
 package org.mobidics.api;
 
 import org.mobidics.api.filter.auth.AuthenticationRequestFilter;
-import org.mobidics.api.resource.AuthResource;
-import org.mobidics.api.resource.MethodResource;
-import org.mobidics.api.resource.UserResource;
+import org.mobidics.api.resource.*;
 import org.mobidics.api.filter.CorsFilter;
 import org.glassfish.jersey.server.ResourceConfig;
 
@@ -22,6 +20,8 @@ public class MobiDics extends ResourceConfig
             .register(UserResource.class)
             .register(MethodResource.class)
             .register(AuthResource.class)
+            .register(UniversityResource.class)
+            .register(FacultyResource.class)
             .register(AuthenticationRequestFilter.class);
     }
 }
