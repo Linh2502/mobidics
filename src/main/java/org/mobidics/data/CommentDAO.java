@@ -130,6 +130,8 @@ public class CommentDAO
         {
             Comment commentToDelete = session.get(Comment.class, commentId);
             session.delete(commentToDelete);
+            cleanUpChildComments(commentId, session);
+            cleanUpCommentVotes(commentId, session);
             tx.commit();
         }
         catch (Exception e)
@@ -140,6 +142,20 @@ public class CommentDAO
         }
         session.close();
         return transactionSuccessful;
+    }
+
+    private void cleanUpChildComments(String commentId, Session session)
+    {
+        Query query = session.getNamedNativeQuery("cleanUpChildComments");
+        query.setParameter("commentId", commentId);
+        query.executeUpdate();
+    }
+
+    private void cleanUpCommentVotes(String commentId, Session session)
+    {
+        Query query = session.getNamedQuery("cleanUpCommentVotes");
+        query.setParameter("commentId", commentId);
+        query.executeUpdate();
     }
 
     public void addCommentVote(CommentVote commentVote)

@@ -392,12 +392,8 @@ public class MethodDAO
                 MobidicsFTPDAO ftpDAO = new MobidicsFTPDAO();
                 ftpDAO.deleteImages(folder);
             }
-            Query query = session.getNamedNativeQuery("cleanUpComments");
-            query.setParameter("method_id", id);
-            query.executeUpdate();
-            query = session.getNamedNativeQuery("cleanUpRatings");
-            query.setParameter("method_id", id);
-            query.executeUpdate();
+            cleanUpComments(id, session);
+            cleanUpRatings(id, session);
             tx.commit();
         }
         catch (Exception e)
@@ -408,6 +404,36 @@ public class MethodDAO
         }
         session.close();
         return transactionSuccessful;
+    }
+
+    private void cleanUpComments(String id, Session session)
+    {
+        cleanUpCommentVotes(id, session);
+        Query query = session.getNamedNativeQuery("cleanUpComments");
+        query.setParameter("method_id", id);
+        query.executeUpdate();
+    }
+
+    private void cleanUpCommentVotes(String id, Session session)
+    {
+        List<Comment> comments;
+        Query query = session.getNamedQuery("getCommentsOfMethod");
+        query.setParameter("method_id", id);
+        comments = query.list();
+        for (Comment comment : comments)
+        {
+            query = session.getNamedQuery("cleanUpCommentVotes");
+            query.setParameter("commentId", comment.getId());
+            query.executeUpdate();
+        }
+    }
+
+    private void cleanUpRatings(String id, Session session)
+    {
+        Query query;
+        query = session.getNamedNativeQuery("cleanUpRatings");
+        query.setParameter("method_id", id);
+        query.executeUpdate();
     }
 
     public MinMaxSummary getMinMaxes()

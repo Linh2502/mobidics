@@ -20,6 +20,14 @@
         SET thumbsup = :thumbsUp, thumbsdown = :thumbsDown, thumbstotal = :thumbsTotal
         WHERE id = :commentId
     </sql-query>
+    <sql-query name="cleanUpChildComments">
+        DELETE FROM comments
+        WHERE root_comment_id = :commentId
+    </sql-query>
+    <sql-query name="cleanUpCommentVotes">
+        DELETE FROM commentvotes
+        WHERE comment_id = :commentId
+    </sql-query>
     <!-- Favorites -->
     <sql-query name="insertFavoriteId">
         INSERT INTO
