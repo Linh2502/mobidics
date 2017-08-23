@@ -182,27 +182,6 @@ public class MethodResource
     }
 
     @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
-    @DELETE
-    @Path("/{methodId}/comments/{commentId}")
-    public Response deleteMethodComment(@PathParam("methodId") String methodId,
-                                        @PathParam("commentId") String commentId)
-    {
-        CommentDAO commentDAO = new CommentDAO();
-        Comment comment = commentDAO.getCommentById(commentId);
-        if (requestContext.getProperty(USERLEVEL).equals(Roles.ADMIN) || requestContext.getProperty(USERNAME)
-                                                                                       .equals(comment.getUsername()))
-        {
-            boolean result = commentDAO.deleteComment(commentId);
-            return Response.ok(result).build();
-
-        }
-        else
-        {
-            return Response.status(Response.Status.UNAUTHORIZED).build();
-        }
-    }
-
-    @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/{methodId}/rating/{rating}")

@@ -15,7 +15,11 @@
         DELETE FROM comments
         WHERE method_id = :method_id
     </sql-query>
-
+    <sql-query name="updateCommentVotes">
+        UPDATE comments
+        SET thumbsup = :thumbsUp, thumbsdown = :thumbsDown, thumbstotal = :thumbsTotal
+        WHERE id = :commentId
+    </sql-query>
     <!-- Favorites -->
     <sql-query name="insertFavoriteId">
         INSERT INTO

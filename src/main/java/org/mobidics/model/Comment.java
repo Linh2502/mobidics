@@ -1,7 +1,10 @@
 package org.mobidics.model;
 
+import org.hibernate.annotations.Columns;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Long Bui on 26.04.17.

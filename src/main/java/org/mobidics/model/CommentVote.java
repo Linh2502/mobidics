@@ -1,21 +1,32 @@
 package org.mobidics.model;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by Long Bui on 26.04.17.
  * E-Mail: longbui1992@gmail.com
  */
-@Entity @Table(name = "commentvotes", schema = "mobidics", catalog = "")
+@Entity @Table(name = "commentvotes", schema = "mobidics")
 @IdClass(CommentVotePK.class)
 public class CommentVote
 {
     private String username;
     private String commentId;
-    private byte value;
-    private Timestamp dateModified;
-    private boolean deleted;
+    private int value;
+    private Date dateModified;
+
+    public CommentVote()
+    {
+    }
+
+    public CommentVote(String username, String commentId, int value)
+    {
+        this.username = username;
+        this.commentId = commentId;
+        this.value = value;
+        this.dateModified = new Date();
+    }
 
     @Id
     @Column(name = "username", nullable = false, length = 30)
@@ -43,38 +54,27 @@ public class CommentVote
 
     @Basic
     @Column(name = "value", nullable = false)
-    public byte getValue()
+    public int getValue()
     {
         return value;
     }
 
-    public void setValue(byte value)
+    public void setValue(int value)
     {
         this.value = value;
     }
 
     @Basic
     @Column(name = "date_modified", nullable = false)
-    public Timestamp getDateModified()
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getDateModified()
     {
         return dateModified;
     }
 
-    public void setDateModified(Timestamp dateModified)
+    public void setDateModified(Date dateModified)
     {
         this.dateModified = dateModified;
-    }
-
-    @Basic
-    @Column(name = "deleted", nullable = false)
-    public boolean isDeleted()
-    {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted)
-    {
-        this.deleted = deleted;
     }
 
     @Override
@@ -95,10 +95,6 @@ public class CommentVote
         {
             return false;
         }
-        if (deleted != that.deleted)
-        {
-            return false;
-        }
         if (username != null ? !username.equals(that.username) : that.username != null)
         {
             return false;
@@ -107,12 +103,7 @@ public class CommentVote
         {
             return false;
         }
-        if (dateModified != null ? !dateModified.equals(that.dateModified) : that.dateModified != null)
-        {
-            return false;
-        }
-
-        return true;
+        return dateModified != null ? dateModified.equals(that.dateModified) : that.dateModified == null;
     }
 
     @Override
@@ -122,7 +113,6 @@ public class CommentVote
         result = 31 * result + (commentId != null ? commentId.hashCode() : 0);
         result = 31 * result + (int) value;
         result = 31 * result + (dateModified != null ? dateModified.hashCode() : 0);
-        result = 31 * result + (deleted ? 1 : 0);
         return result;
     }
 }

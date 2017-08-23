@@ -22,6 +22,7 @@ public class MobiDics extends ResourceConfig
             .register(AuthResource.class)
             .register(UniversityResource.class)
             .register(FacultyResource.class)
+            .register(CommentResource.class)
             .register(AuthenticationRequestFilter.class);
     }
 }

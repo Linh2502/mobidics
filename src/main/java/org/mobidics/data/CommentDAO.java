@@ -4,7 +4,13 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.mobidics.model.Comment;
+import org.mobidics.model.CommentVote;
+import org.mobidics.model.CommentVotePK;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.CriteriaUpdate;
+import javax.persistence.criteria.Root;
 import java.util.*;
 
 public class CommentDAO
@@ -136,4 +142,53 @@ public class CommentDAO
         return transactionSuccessful;
     }
 
+    public void addCommentVote(CommentVote commentVote)
+    {
+        Session session = SessionUtil.getSession();
+        Transaction tx = session.beginTransaction();
+        try
+        {
+            session.saveOrUpdate(commentVote);
+            updateCommentVotes(commentVote.getCommentId(), session);
+            tx.commit();
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            tx.rollback();
+        }
+    }
+
+    private void updateCommentVotes(String commentId, Session session)
+    {
+        int thumbsUp = 0;
+        int thumbsDown = 0;
+        for (CommentVote vote : getAllCommentVotes(commentId, session))
+        {
+            if (vote.getValue() == 1)
+            {
+                thumbsUp++;
+            }
+            else
+            {
+                thumbsDown++;
+            }
+        }
+        Query query = session.getNamedNativeQuery("updateCommentVotes");
+        query.setParameter("commentId", commentId);
+        query.setParameter("thumbsUp", thumbsUp);
+        query.setParameter("thumbsDown", thumbsDown);
+        query.setParameter("thumbsTotal", thumbsUp + thumbsDown);
+        query.executeUpdate();
+    }
+
+    private List<CommentVote> getAllCommentVotes(String commentId, Session session)
+    {
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<CommentVote> criteriaQuery = criteriaBuilder.createQuery(CommentVote.class);
+        Root<CommentVote> commentVoteRoot = criteriaQuery.from(CommentVote.class);
+        criteriaQuery.where(criteriaBuilder.equal(commentVoteRoot.get("commentId"), commentId));
+        return session.createQuery(criteriaQuery).getResultList();
+    }
 }

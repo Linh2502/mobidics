@@ -13,6 +13,16 @@ public class CommentVotePK implements Serializable
     private String username;
     private String commentId;
 
+    public CommentVotePK()
+    {
+    }
+
+    public CommentVotePK(String username, String commentId)
+    {
+        this.username = username;
+        this.commentId = commentId;
+    }
+
     @Column(name = "username", nullable = false, length = 30)
     @Id
     public String getUsername()
