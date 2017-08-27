@@ -15,7 +15,7 @@ import java.util.List;
 public class MethodViewModel
 {
     // TODO change to liveserver
-    static final String IMAGE_PREFIX = "http://lb-staging.dynv6.net:2480/mobidics/files/";
+    static final String IMAGE_PREFIX = "http://lbstaging.dynv6.net:2480/mobidics/files/";
     private String id;
     private String language;
     private Date dateCreated;

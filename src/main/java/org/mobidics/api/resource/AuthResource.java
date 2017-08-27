@@ -3,6 +3,7 @@ package org.mobidics.api.resource;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+import com.owlike.genson.Genson;
 import org.glassfish.jersey.internal.util.Base64;
 import org.mobidics.api.viewmodel.UserViewModel;
 import org.mobidics.data.UserDAO;

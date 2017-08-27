@@ -1,5 +1,6 @@
 package org.mobidics.api;
 
+import com.owlike.genson.ext.jaxrs.GensonJsonConverter;
 import org.mobidics.api.filter.auth.AuthenticationRequestFilter;
 import org.mobidics.api.resource.*;
 import org.mobidics.api.filter.CorsFilter;
@@ -23,6 +24,7 @@ public class MobiDics extends ResourceConfig
             .register(UniversityResource.class)
             .register(FacultyResource.class)
             .register(CommentResource.class)
-            .register(AuthenticationRequestFilter.class);
+            .register(AuthenticationRequestFilter.class)
+            .register(GensonJsonConverter.class);
     }
 }
