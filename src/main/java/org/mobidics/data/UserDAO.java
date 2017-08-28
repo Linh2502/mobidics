@@ -191,6 +191,27 @@ public class UserDAO
         return result;
     }
 
+    public void updateUserLevel(String username, int newUserLevel)
+    {
+        Session session = SessionUtil.getSession();
+        Transaction tx = session.beginTransaction();
+        try
+        {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaUpdate<User> criteriaUpdate = cb.createCriteriaUpdate(User.class);
+            Root<User> userRoot = criteriaUpdate.from(User.class);
+            criteriaUpdate.set("userLevel", newUserLevel).where(cb.equal(userRoot.get("username"), username));
+            session.createQuery(criteriaUpdate).executeUpdate();
+            tx.commit();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            tx.rollback();
+        }
+        session.close();
+    }
+
     public void updateLastActiveTimestamp(String username)
     {
         Session session = SessionUtil.getSession();

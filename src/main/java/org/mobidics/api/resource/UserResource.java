@@ -128,4 +128,14 @@ public class UserResource
                 .getUserByUsername((String) requestContext.getProperty(USERNAME));
         return Response.ok(new UserViewModel(authenticatedUser)).build();
     }
+
+    @RolesAllowed({Roles.ADMIN})
+    @PUT
+    @Path("{username}/level/{newLevel}")
+    public Response updateUserLevel(@PathParam("username") String username, @PathParam("newLevel") int newLevel)
+    {
+        UserDAO userDAO = new UserDAO();
+        userDAO.updateUserLevel(username, newLevel);
+        return Response.ok().build();
+    }
 }
