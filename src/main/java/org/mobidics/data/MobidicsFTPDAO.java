@@ -10,16 +10,14 @@ import javax.xml.bind.DatatypeConverter;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
+import static org.mobidics.config.Config.*;
+
 /**
  * Created by Long on 10.06.2017.
  * E-Mail: longbui1992@gmail.com
  */
 public class MobidicsFTPDAO
 {
-    private static final String FTP_SERVER = "localhost";
-    private static final int FTP_PORT = 21;
-    private static final String FTP_USERNAME = "admin";
-    private static final String FTP_PASSWORD = "lb92bl29";
     private static final String FTP_FILESPATH = "/mobidics/files/";
     private static final String FTP_FILESPATH_IMAGES = "/images/";
 

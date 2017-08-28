@@ -58,6 +58,23 @@ public class UserResource
     }
 
     @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/{username}")
+    public Response updateUser(@PathParam("username") String username, UserViewModel user)
+    {
+        String authenticatedUsername = (String) requestContext.getProperty(USERNAME);
+        if (!username.equals(authenticatedUsername))
+        {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+        UserDAO userDAO = new UserDAO();
+        System.out.println((user.getFirstname()));
+        userDAO.updateUser(user);
+        return Response.ok().build();
+    }
+
+    @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{username}")

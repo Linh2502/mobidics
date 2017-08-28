@@ -52,22 +52,34 @@
     <sql-query name="insertMethod_de">
         INSERT INTO
         methods_de(id,language,title,alternative_titles,socialform,phase,subphase,result,grouptype,coursetype,participants_min,participants_max,participants_comment,seating,time_min,time_max,time_comment,rating,ourrating,proceeding,phaseproceeding,variation,examples,tips,visualization,folder,haspictures,scope,hyperlinks,citations,vendor_id,date_created)
-        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+        VALUES(:uuid,:language,:title,:alternative_titles,:socialform,:phase,:subphase,:result,:grouptype,:coursetype,:participants_min,:participants_max,:participants_comment,:seating,:time_min,:time_max,:time_comment,:rating,:ourrating,:proceeding,:phaseproceeding,:variation,:examples,:tips,:visualization,:folder,:haspictures,:scope,:hyperlinks,:citations,:vendor_id,:date_created)
     </sql-query>
     <sql-query name="insertMethod_en">
         INSERT INTO
         methods_en(id,language,title,alternative_titles,socialform,phase,subphase,result,grouptype,coursetype,participants_min,participants_max,participants_comment,seating,time_min,time_max,time_comment,rating,ourrating,proceeding,phaseproceeding,variation,examples,tips,visualization,folder,haspictures,scope,hyperlinks,citations,vendor_id,date_created)
-        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+        VALUES(:uuid,:language,:title,:alternative_titles,:socialform,:phase,:subphase,:result,:grouptype,:coursetype,:participants_min,:participants_max,:participants_comment,:seating,:time_min,:time_max,:time_comment,:rating,:ourrating,:proceeding,:phaseproceeding,:variation,:examples,:tips,:visualization,:folder,:haspictures,:scope,:hyperlinks,:citations,:vendor_id,:date_created)
     </sql-query>
     <sql-query name="insertMethod_fr">
         INSERT INTO
         methods_fr(id,language,title,alternative_titles,socialform,phase,subphase,result,grouptype,coursetype,participants_min,participants_max,participants_comment,seating,time_min,time_max,time_comment,rating,ourrating,proceeding,phaseproceeding,variation,examples,tips,visualization,folder,haspictures,scope,hyperlinks,citations,vendor_id,date_created)
-        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+        VALUES(:uuid,:language,:title,:alternative_titles,:socialform,:phase,:subphase,:result,:grouptype,:coursetype,:participants_min,:participants_max,:participants_comment,:seating,:time_min,:time_max,:time_comment,:rating,:ourrating,:proceeding,:phaseproceeding,:variation,:examples,:tips,:visualization,:folder,:haspictures,:scope,:hyperlinks,:citations,:vendor_id,:date_created)
     </sql-query>
     <sql-query name="insertMethod_es">
         INSERT INTO
         methods_es(id,language,title,alternative_titles,socialform,phase,subphase,result,grouptype,coursetype,participants_min,participants_max,participants_comment,seating,time_min,time_max,time_comment,rating,ourrating,proceeding,phaseproceeding,variation,examples,tips,visualization,folder,haspictures,scope,hyperlinks,citations,vendor_id,date_created)
-        VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+        VALUES(:uuid,:language,:title,:alternative_titles,:socialform,:phase,:subphase,:result,:grouptype,:coursetype,:participants_min,:participants_max,:participants_comment,:seating,:time_min,:time_max,:time_comment,:rating,:ourrating,:proceeding,:phaseproceeding,:variation,:examples,:tips,:visualization,:folder,:haspictures,:scope,:hyperlinks,:citations,:vendor_id,:date_created)
+    </sql-query>
+    <sql-query name="updateMethod_de">
+        UPDATE methods_de
+        SET title = :title, alternative_titles = :alternative_titles, socialform = :socialform, phase = :phase,
+        subphase = :subphase, result = :result, grouptype = :grouptype, coursetype = :coursetype,
+        participants_min = :participants_min, participants_max = :participants_max,
+        participants_comment = :participants_comment, seating = :seating,
+        time_min = :time_min, time_max = :time_max, time_comment = :time_comment,rating = :rating,
+        ourrating = :ourrating, proceeding = :proceeding, phaseproceeding = :phaseproceeding,
+        variation = :variation, examples = :examples, tips = :tips, visualization = :visualization,
+        haspictures = :haspictures, scope = :scope, hyperlinks = :hyperlinks, citations = :citations
+        WHERE id = :methodId
     </sql-query>
     <sql-query name="updateMethodDeRating">
         UPDATE methods_de
@@ -86,6 +98,13 @@
         INSERT INTO
         users(username,password,email,timestamp,userlevel,language,firstname,lastname,gender,userstatus,userstatus_other,usertype,usertype_other,university_id)
         VALUES(:username,:password,:email,:timestamp,:userlevel,:language,:firstname,:lastname,:gender,:userstatus,:userstatus_other,:usertype,:usertype_other,:university_id)
+    </sql-query>
+    <sql-query name="updateUser">
+        UPDATE users SET email = :email, timestamp = :timestamp, firstname = :firstname, lastname = :lastname, gender =
+        :gender, userstatus = :userstatus, userstatus_other = :userstatus_other, usertype = :usertype, usertype_other =
+        :usertype_other, university_id = :university_id,faculty_id = :faculty_id, birthday = :birthday, department =
+        :department, experience = :experience, language = :language
+        WHERE username = :username
     </sql-query>
 
     <!-- Rating -->

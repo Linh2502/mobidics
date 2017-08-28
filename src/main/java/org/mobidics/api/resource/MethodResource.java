@@ -130,7 +130,7 @@ public class MethodResource
         return Response.ok(removed).build();
     }
 
-    @RolesAllowed({Roles.USER, Roles.ADMIN})
+    @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addMethod(MethodViewModel newMethod)
@@ -138,6 +138,31 @@ public class MethodResource
         MethodDAO methodDAO = new MethodDAO();
         boolean added = methodDAO.addMethod(newMethod);
         return Response.ok(added).build();
+    }
+
+    @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/{methodId}")
+    public Response updateMethod(@PathParam("methodId") String methodId, MethodViewModel method)
+    {
+        if (methodId.equals(method.getId()))
+        {
+            MethodDAO methodDAO = new MethodDAO();
+            boolean success = methodDAO.updateMethod(method);
+            if (success)
+            {
+                return Response.ok().build();
+            }
+            else
+            {
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            }
+        }
+        else
+        {
+            return Response.status(Response.Status.PRECONDITION_FAILED).build();
+        }
     }
 
     @RolesAllowed({Roles.TRIAL, Roles.USER, Roles.ADMIN})

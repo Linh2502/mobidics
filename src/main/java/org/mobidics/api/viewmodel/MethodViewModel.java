@@ -1,12 +1,13 @@
 package org.mobidics.api.viewmodel;
 
 import com.owlike.genson.annotation.JsonIgnore;
-import org.mobidics.model.MethodGerman;
 import org.mobidics.model.MobiDicsMethod;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static org.mobidics.config.Config.IMAGES_LOCATION;
 
 /**
  * Created by Long Bui on 27.04.17.
@@ -14,22 +15,20 @@ import java.util.List;
  */
 public class MethodViewModel
 {
-    // TODO change to liveserver
-    static final String IMAGE_PREFIX = "http://lbstaging.dynv6.net:2480/mobidics/files/";
     private String id;
     private String language;
     private Date dateCreated;
     private String title;
     private String alternativeTitles;
-    private int[] socialform;
-    private int[] phase;
-    private int[] subphase;
+    private int[] socialForm = new int[0];
+    private int[] phase = new int[0];
+    private int[] subPhase = new int[0];
     private String result;
-    private Integer grouptype;
-    private int[] coursetype;
-    private Integer participantsMin;
-    private Integer participantsMax;
-    private String participantsComment;
+    private Integer groupType;
+    private int[] courseType = new int[0];
+    private Integer groupSizeMin;
+    private Integer groupSizeMax;
+    private String groupSizeComment;
     private String seating;
     private Integer timeMin;
     private Integer timeMax;
@@ -60,6 +59,10 @@ public class MethodViewModel
 
     private int[] splitString(String string)
     {
+        if (string.equals(""))
+        {
+            return new int[0];
+        }
         String[] splitString = string.split(":");
         int[] result = new int[splitString.length];
         for (int i = 0; i < splitString.length; i++)
@@ -76,15 +79,15 @@ public class MethodViewModel
         this.dateCreated = method.getDateCreated();
         this.title = method.getTitle();
         this.alternativeTitles = method.getAlternativeTitles();
-        this.socialform = splitString(method.getSocialform());
+        this.socialForm = splitString(method.getSocialform());
         this.phase = splitString(method.getPhase());
-        this.subphase = splitString(method.getSubphase());
+        this.subPhase = splitString(method.getSubphase());
         this.result = method.getResult();
-        this.grouptype = method.getGrouptype();
-        this.coursetype = splitString(method.getCoursetype());
-        this.participantsMin = method.getParticipantsMin();
-        this.participantsMax = method.getParticipantsMax();
-        this.participantsComment = method.getParticipantsComment();
+        this.groupType = method.getGrouptype();
+        this.courseType = splitString(method.getCoursetype());
+        this.groupSizeMin = method.getParticipantsMin();
+        this.groupSizeMax = method.getParticipantsMax();
+        this.groupSizeComment = method.getParticipantsComment();
         this.seating = method.getSeating();
         this.timeMin = method.getTimeMin();
         this.timeMax = method.getTimeMax();
@@ -130,7 +133,7 @@ public class MethodViewModel
         List<String> result = new ArrayList<>(imageFileNames.size());
         for (String string : this.imageFileNames)
         {
-            result.add(IMAGE_PREFIX + this.folder + "/images/" + string);
+            result.add(IMAGES_LOCATION + this.folder + "/images/" + string);
         }
         return result;
     }
@@ -147,7 +150,7 @@ public class MethodViewModel
 
     public int[] getSocialForm()
     {
-        return this.socialform;
+        return this.socialForm;
     }
 
     public int[] getPhase()
@@ -157,7 +160,7 @@ public class MethodViewModel
 
     public int[] getSubPhase()
     {
-        return this.subphase;
+        return this.subPhase;
     }
 
     public String getResult()
@@ -167,27 +170,27 @@ public class MethodViewModel
 
     public int[] getCourseType()
     {
-        return this.coursetype;
+        return this.courseType;
     }
 
     public Integer getGroupType()
     {
-        return this.grouptype;
+        return this.groupType;
     }
 
     public Integer getGroupSizeMin()
     {
-        return this.participantsMin;
+        return this.groupSizeMin;
     }
 
     public Integer getGroupSizeMax()
     {
-        return this.participantsMax;
+        return this.groupSizeMax;
     }
 
     public String getGroupSizeComment()
     {
-        return this.participantsComment;
+        return this.groupSizeComment;
     }
 
     public String getProceeding()
@@ -274,7 +277,7 @@ public class MethodViewModel
 
     public String getThumbnail()
     {
-        return IMAGE_PREFIX + this.folder + "/default.png";
+        return IMAGES_LOCATION + this.folder + "/default.png";
     }
 
     public Date getCreationDate()
@@ -322,9 +325,9 @@ public class MethodViewModel
         this.alternativeTitles = alternativeTitles;
     }
 
-    public void setSocialform(int[] socialform)
+    public void setSocialForm(int[] socialform)
     {
-        this.socialform = socialform;
+        this.socialForm = socialform;
     }
 
     public void setPhase(int[] phase)
@@ -332,9 +335,9 @@ public class MethodViewModel
         this.phase = phase;
     }
 
-    public void setSubphase(int[] subphase)
+    public void setSubPhase(int[] subphase)
     {
-        this.subphase = subphase;
+        this.subPhase = subphase;
     }
 
     public void setResult(String result)
@@ -342,29 +345,29 @@ public class MethodViewModel
         this.result = result;
     }
 
-    public void setGrouptype(Integer grouptype)
+    public void setGroupType(Integer groupType)
     {
-        this.grouptype = grouptype;
+        this.groupType = groupType;
     }
 
-    public void setCoursetype(int[] coursetype)
+    public void setCourseType(int[] coursetype)
     {
-        this.coursetype = coursetype;
+        this.courseType = coursetype;
     }
 
-    public void setParticipantsMin(Integer participantsMin)
+    public void setGroupSizeMin(Integer groupSizeMin)
     {
-        this.participantsMin = participantsMin;
+        this.groupSizeMin = groupSizeMin;
     }
 
-    public void setParticipantsMax(Integer participantsMax)
+    public void setGroupSizeMax(Integer groupSizeMax)
     {
-        this.participantsMax = participantsMax;
+        this.groupSizeMax = groupSizeMax;
     }
 
-    public void setParticipantsComment(String participantsComment)
+    public void setGroupSizeComment(String groupSizeComment)
     {
-        this.participantsComment = participantsComment;
+        this.groupSizeComment = groupSizeComment;
     }
 
     public void setSeating(String seating)

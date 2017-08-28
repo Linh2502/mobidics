@@ -26,6 +26,8 @@ public class UniversityDAO
         CriteriaQuery<University> criteriaQuery = criteriaBuilder.createQuery(University.class);
         Root<University> universityRoot = criteriaQuery.from(University.class);
         criteriaQuery.select(universityRoot);
-        return session.createQuery(criteriaQuery).getResultList();
+        List<University> result = session.createQuery(criteriaQuery).getResultList();
+        session.close();
+        return result;
     }
 }

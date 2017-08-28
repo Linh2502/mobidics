@@ -1,5 +1,6 @@
 package org.mobidics.api.viewmodel;
 
+import org.mobidics.config.Config;
 import org.mobidics.model.MobiDicsMethod;
 
 import java.util.Date;
@@ -39,6 +40,6 @@ public class MethodReducedViewModel
 
     public String getThumbnail()
     {
-        return MethodViewModel.IMAGE_PREFIX + method.getFolder() + "/default.png";
+        return Config.IMAGES_LOCATION + method.getFolder() + "/default.png";
     }
 }

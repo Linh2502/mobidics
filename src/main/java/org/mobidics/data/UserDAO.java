@@ -36,6 +36,7 @@ public class UserDAO
         Transaction tx = session.beginTransaction();
         try
         {
+            System.out.println(userToCreate);
             Query query = session.getNamedQuery("createUser");
             query.setParameter("username", userToCreate.getUsername());
             query.setParameter("password", messageDigestPassword(userToCreate.getPassword()));
@@ -60,7 +61,49 @@ public class UserDAO
             result = false;
             tx.rollback();
         }
+        session.close();
         return result;
+    }
+
+    public void updateUser(UserViewModel user)
+    {
+        Session session = SessionUtil.getSession();
+        Transaction tx = session.beginTransaction();
+
+        try
+        {
+            Query query = session.getNamedQuery("updateUser");
+            query.setParameter("username", user.getUsername());
+            query.setParameter("email", user.getEmail());
+            query.setParameter("timestamp", new Date().getTime() / 1000);
+            query.setParameter("language", user.getLanguage());
+            query.setParameter("firstname", user.getFirstname());
+            query.setParameter("lastname", user.getLastname());
+            query.setParameter("gender", user.getGender() == 0 ? 1 : 2);
+            query.setParameter("userstatus", EnumTransformer.transformUserStatus(user.getUserStatus()));
+            query.setParameter("userstatus_other", user.getUserStatusOther());
+            query.setParameter("usertype", EnumTransformer.transformUserType(user.getUserType()));
+            query.setParameter("usertype_other", user.getUserTypeOther());
+            if (user.getUniversity() != null)
+            {
+                query.setParameter("university_id", user.getUniversity().getId());
+            }
+            if (user.getFaculty() != null)
+            {
+                query.setParameter("faculty_id", user.getFaculty().getNr());
+            }
+            query.setParameter("birthday", user.getBirthday());
+            query.setParameter("department", user.getDepartment());
+            query.setParameter("experience", user.getExperience());
+            query.executeUpdate();
+            tx.commit();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            tx.rollback();
+        }
+        session.close();
     }
 
     public void deleteUser(String username)
@@ -81,6 +124,7 @@ public class UserDAO
             e.printStackTrace();
             tx.rollback();
         }
+        session.close();
     }
 
     public void approveUser(String username)
@@ -112,6 +156,7 @@ public class UserDAO
             e.printStackTrace();
             tx.rollback();
         }
+        session.close();
     }
 
     public List<User> getAllUsers()

@@ -20,6 +20,7 @@ public class RatingDAO
         Rating result;
         Session session = SessionUtil.getSession();
         result = session.get(Rating.class, new RatingPK(methodId, username));
+        session.close();
         return result;
     }
 
@@ -42,6 +43,7 @@ public class RatingDAO
             transactionSuccessful = false;
             tx.rollback();
         }
+        session.close();
         return transactionSuccessful;
     }
 

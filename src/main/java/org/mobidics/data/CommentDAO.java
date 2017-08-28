@@ -174,6 +174,7 @@ public class CommentDAO
             e.printStackTrace();
             tx.rollback();
         }
+        session.close();
     }
 
     private void updateCommentVotes(String commentId, Session session)

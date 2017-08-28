@@ -14,6 +14,8 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.*;
 
+import static org.mobidics.data.util.DBArrayUtils.intArrayToString;
+
 /**
  * Created by Long Bui on 27.04.17.
  * E-Mail: longbui1992@gmail.com
@@ -275,38 +277,38 @@ public class MethodDAO
             String newUuid = String.valueOf(UUID.randomUUID());
             String folder = new Date().getTime() + "." + (int) (Math.random() * 100);
             Query namedQuery = session.getNamedNativeQuery("insertMethod_" + newMethod.getLanguage());
-            namedQuery.setParameter(0, newUuid);
-            namedQuery.setParameter(1, newMethod.getLanguage());
-            namedQuery.setParameter(2, newMethod.getTitle());
-            namedQuery.setParameter(3, newMethod.getAlternativeTitles());
-            namedQuery.setParameter(4, newMethod.getSocialForm());
-            namedQuery.setParameter(5, newMethod.getPhase());
-            namedQuery.setParameter(6, newMethod.getSubPhase());
-            namedQuery.setParameter(7, newMethod.getResult());
-            namedQuery.setParameter(8, newMethod.getGroupType());
-            namedQuery.setParameter(9, newMethod.getCourseType());
-            namedQuery.setParameter(10, newMethod.getGroupSizeMin());
-            namedQuery.setParameter(11, newMethod.getGroupSizeMax());
-            namedQuery.setParameter(12, newMethod.getGroupSizeComment());
-            namedQuery.setParameter(13, newMethod.getSeating());
-            namedQuery.setParameter(14, newMethod.getTimeMin());
-            namedQuery.setParameter(15, newMethod.getTimeMax());
-            namedQuery.setParameter(16, newMethod.getTimeComment());
-            namedQuery.setParameter(17, newMethod.getRating());
-            namedQuery.setParameter(18, newMethod.getExperiences());
-            namedQuery.setParameter(19, newMethod.getProceeding());
-            namedQuery.setParameter(20, newMethod.getPhaseProceeding());
-            namedQuery.setParameter(21, newMethod.getVariations());
-            namedQuery.setParameter(22, newMethod.getExamples());
-            namedQuery.setParameter(23, newMethod.getTips());
-            namedQuery.setParameter(24, newMethod.getVisualization());
-            namedQuery.setParameter(25, folder);
-            namedQuery.setParameter(26, newMethod.getImageDataUris().isEmpty() ? 1 : 2);
-            namedQuery.setParameter(27, newMethod.getScope());
-            namedQuery.setParameter(28, newMethod.getWeblinks());
-            namedQuery.setParameter(29, newMethod.getCitations());
-            namedQuery.setParameter(30, 0);
-            namedQuery.setParameter(31, new Date());
+            namedQuery.setParameter("uuid", newUuid);
+            namedQuery.setParameter("language", newMethod.getLanguage());
+            namedQuery.setParameter("title", newMethod.getTitle());
+            namedQuery.setParameter("alternative_titles", newMethod.getAlternativeTitles());
+            namedQuery.setParameter("socialform", intArrayToString(newMethod.getSocialForm()));
+            namedQuery.setParameter("phase", intArrayToString(newMethod.getPhase()));
+            namedQuery.setParameter("subphase", intArrayToString(newMethod.getSubPhase()));
+            namedQuery.setParameter("result", newMethod.getResult());
+            namedQuery.setParameter("grouptype", newMethod.getGroupType());
+            namedQuery.setParameter("coursetype", intArrayToString(newMethod.getCourseType()));
+            namedQuery.setParameter("participants_min", newMethod.getGroupSizeMin());
+            namedQuery.setParameter("participants_max", newMethod.getGroupSizeMax());
+            namedQuery.setParameter("participants_comment", newMethod.getGroupSizeComment());
+            namedQuery.setParameter("seating", newMethod.getSeating());
+            namedQuery.setParameter("time_min", newMethod.getTimeMin());
+            namedQuery.setParameter("time_max", newMethod.getTimeMax());
+            namedQuery.setParameter("time_comment", newMethod.getTimeComment());
+            namedQuery.setParameter("rating", newMethod.getRating());
+            namedQuery.setParameter("ourrating", newMethod.getExperiences());
+            namedQuery.setParameter("proceeding", newMethod.getProceeding());
+            namedQuery.setParameter("phaseproceeding", newMethod.getPhaseProceeding());
+            namedQuery.setParameter("variation", newMethod.getVariations());
+            namedQuery.setParameter("examples", newMethod.getExamples());
+            namedQuery.setParameter("tips", newMethod.getTips());
+            namedQuery.setParameter("visualization", newMethod.getVisualization());
+            namedQuery.setParameter("folder", folder);
+            namedQuery.setParameter("haspictures", newMethod.getImageDataUris().isEmpty() ? 1 : 2);
+            namedQuery.setParameter("scope", newMethod.getScope());
+            namedQuery.setParameter("hyperlinks", newMethod.getWeblinks());
+            namedQuery.setParameter("citations", newMethod.getCitations());
+            namedQuery.setParameter("vendor_id", 0);
+            namedQuery.setParameter("date_created", new Date());
             namedQuery.executeUpdate();
 
             if (!newMethod.getImageDataUris().isEmpty())
@@ -335,6 +337,55 @@ public class MethodDAO
         }
         session.close();
         return transactionSuccessful;
+    }
+
+    public boolean updateMethod(MethodViewModel method)
+    {
+        Session session = SessionUtil.getSession();
+        Transaction tx = session.beginTransaction();
+        boolean success = true;
+        try
+        {
+            Query namedQuery = session.getNamedNativeQuery("updateMethod_" + method.getLanguage());
+            namedQuery.setParameter("title", method.getTitle());
+            namedQuery.setParameter("alternative_titles", method.getAlternativeTitles());
+            namedQuery.setParameter("socialform", intArrayToString(method.getSocialForm()));
+            namedQuery.setParameter("phase", intArrayToString(method.getPhase()));
+            namedQuery.setParameter("subphase", intArrayToString(method.getSubPhase()));
+            namedQuery.setParameter("result", method.getResult());
+            namedQuery.setParameter("grouptype", method.getGroupType());
+            namedQuery.setParameter("coursetype", intArrayToString(method.getCourseType()));
+            namedQuery.setParameter("participants_min", method.getGroupSizeMin());
+            namedQuery.setParameter("participants_max", method.getGroupSizeMax());
+            namedQuery.setParameter("participants_comment", method.getGroupSizeComment());
+            namedQuery.setParameter("seating", method.getSeating());
+            namedQuery.setParameter("time_min", method.getTimeMin());
+            namedQuery.setParameter("time_max", method.getTimeMax());
+            namedQuery.setParameter("time_comment", method.getTimeComment());
+            namedQuery.setParameter("rating", method.getRating());
+            namedQuery.setParameter("ourrating", method.getExperiences());
+            namedQuery.setParameter("proceeding", method.getProceeding());
+            namedQuery.setParameter("phaseproceeding", method.getPhaseProceeding());
+            namedQuery.setParameter("variation", method.getVariations());
+            namedQuery.setParameter("examples", method.getExamples());
+            namedQuery.setParameter("tips", method.getTips());
+            namedQuery.setParameter("visualization", method.getVisualization());
+            namedQuery.setParameter("haspictures", method.getImageDataUris().isEmpty() ? 1 : 2);
+            namedQuery.setParameter("scope", method.getScope());
+            namedQuery.setParameter("hyperlinks", method.getWeblinks());
+            namedQuery.setParameter("citations", method.getCitations());
+            namedQuery.setParameter("methodId", method.getId());
+            namedQuery.executeUpdate();
+            tx.commit();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            tx.rollback();
+            success = false;
+        }
+        session.close();
+        return success;
     }
 
     private void uploadImagesToServer(String folder, String methodName, String thumbnailDataUri,
